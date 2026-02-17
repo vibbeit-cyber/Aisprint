@@ -18,20 +18,13 @@ export async function sendApplicationEmail(data: {
 }) {
   const { name, email, course } = data;
 
-  const logoPath = path.join(process.cwd(), "public", "logo.png");
+  //const logoPath = path.join(process.cwd(), "public", "logo.png");
 
   // Email to user
   await transporter.sendMail({
     from: `"AiSprint Admissions" <${process.env.SMTP_USER}>`,
     to: email,
     subject: `Application Received — ${course}`,
-    attachments: [
-        {
-          filename: "/logo.png",
-          path: logoPath,
-          cid: "aisprintlogo",
-        },
-      ],
 
     html: `
       <div style="font-family: Arial, sans-serif; line-height:1.6; max-width:600px; margin:auto;">
@@ -64,10 +57,7 @@ export async function sendApplicationEmail(data: {
           <strong>AiSprint Admissions Team</strong>
         </p>
       </div>
-      <!-- Logo Below Signature -->
-      <div style="margin-top:15px;">
-        <img src="cid:aisprintlogo" alt="AiSprint" style="height:50px;" />
-      </div>
+
     `,
   });
 
