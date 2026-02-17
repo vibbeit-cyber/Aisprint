@@ -1,8 +1,10 @@
+import { Video, Globe, UploadCloud , Users } from "lucide-react";
+
 export default function SolutionSection() {
   const pillars = [
     {
       number: '01',
-      icon: '🎯',
+      icon: <Video size={28} color="white" />,
       title: '1:1 Live Mentorship',
       description:
         'Every session is scheduled around you. Your mentor reviews your code, corrects your thinking in real time, and adapts explanations to your learning style. No generic lectures.',
@@ -10,7 +12,7 @@ export default function SolutionSection() {
     },
     {
       number: '02',
-      icon: '🌍',
+      icon: <Globe size={28} color="white" />,
       title: 'Global Placement Support',
       description:
         'Our career team has placed graduates at Google, Microsoft, Flipkart, Razorpay, Meesho, and 80+ startups globally. We do mock interviews, CV reviews, and referrals.',
@@ -18,7 +20,7 @@ export default function SolutionSection() {
     },
     {
       number: '03',
-      icon: '🏗️',
+      icon: <UploadCloud size={28} color="white"/>,
       title: 'Real Production Projects',
       description:
         'You don\'t just learn theory — you build and deploy. Every learner ships at least 3 real projects to GitHub and a public portfolio that hiring managers can verify.',
@@ -26,7 +28,7 @@ export default function SolutionSection() {
     },
     {
       number: '04',
-      icon: '🤝',
+      icon: <Users size={28} color="white"/>,
       title: 'Lifetime Access & Community',
       description:
         'Recordings of every session, updated curriculum as AI evolves, and a private alumni community of 2,400+ professionals. Pay once, grow forever.',

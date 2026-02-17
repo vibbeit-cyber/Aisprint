@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Cpu, MessageSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: 'All Courses — AiSprint',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function CoursesPage() {
   const courses = [
     {
-      icon: '🤖',
+      icon: <Cpu size={38}/>,
       title: 'Machine Learning & AI',
       subtitle: '16-Week Deep Dive Program',
       price: '₹79,000',
@@ -31,7 +32,7 @@ export default function CoursesPage() {
       for: 'Engineers, analysts & developers switching to AI/ML',
     },
     {
-      icon: '✨',
+      icon: <MessageSquare size={28}/>,
       title: 'Prompt Engineering & LLMs',
       subtitle: '8-Week Intensive Program',
       price: '₹499',

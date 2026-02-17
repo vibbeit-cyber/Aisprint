@@ -1,11 +1,11 @@
 import Link from 'next/link'
-
+import { Cpu, MessageSquare } from "lucide-react";
 const courses = [
   {
     id: 'ml-ai',
     badge: 'Most Popular',
     badgeColor: 'badge-orange',
-    icon: '🤖',
+    icon: <Cpu size={38}/>,
     title: 'Machine Learning & AI',
     subtitle: 'Comprehensive 16-Week Program',
     description:
@@ -28,7 +28,7 @@ const courses = [
     id: 'prompt-engineering',
     badge: 'Hot Right Now',
     badgeColor: 'badge-blue',
-    icon: '✨',
+    icon: <MessageSquare size={28}/>,
     title: 'Prompt Engineering & LLMs',
     subtitle: '8-Week Intensive Program',
     description:
