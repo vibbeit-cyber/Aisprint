@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import ChatBox from '@/components/ChatBox'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -95,6 +96,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <ChatBox />
       </body>
     </html>
   )

@@ -41,21 +41,7 @@ export default function Footer() {
               India&apos;s premier 1:1 live AI education platform. Partnered with Startup India and recognized by Swayam.
             </p>
 
-            <div className="flex gap-3">
-              {['LinkedIn', 'Twitter', 'YouTube'].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  aria-label={social}
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-brand-600 flex items-center justify-center transition-colors"
-                >
-                  <span className="text-xs font-semibold text-white">
-                    {social[0]}
-                  </span>
-                </a>
-              ))}
-            </div>
-
+            
             <div className="flex flex-wrap gap-2 mt-6">
               <span className="badge bg-white/10 text-gray-300 text-xs">
                 🚀 Startup India Partner
@@ -92,7 +78,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-custom py-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} AiSprint Technologies Pvt. Ltd. All rights reserved.
+            © {new Date().getFullYear()} Aisprint Technologies Pvt. Ltd. All rights reserved.
           </p>
           <p className="text-xs text-gray-500">
             Chennai, Tamil Nadu, India
