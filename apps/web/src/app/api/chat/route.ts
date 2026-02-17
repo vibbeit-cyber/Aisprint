@@ -54,63 +54,68 @@ const getKnowledgeBaseResponse = (
     message.includes('prompt')
   ) {
     if (message.includes('prompt')) {
-      return `Great question! Our **Prompt Engineering course** teaches you how to effectively work with AI models like ChatGPT, GPT-4, and other LLMs. 
-
-You'll learn:
-- Prompt design and optimization techniques
-- Advanced ChatGPT usage
-- Integrating AI into applications
-- Real-world AI applications
-
-**Duration**: 8-12 weeks
-**Format**: 1:1 mentorship + group sessions
-**Placement Support**: Yes
-**Price**: Competitive and affordable
-
-Would you like to know more details or apply for the course? Visit /prompt-engineering to learn more!`
-    }
-
+        return `### Prompt Engineering
+      
+Great question! Our **Prompt Engineering** course teaches you how to effectively work with AI models like ChatGPT, GPT-4, and other LLMs.
+      
+**What you'll learn**
+      - Prompt design and optimization techniques
+      - Advanced ChatGPT workflows
+      - Integrating LLMs into applications
+      - Real-world project use-cases
+      
+**Duration:** 8–12 weeks  
+**Format:** 1:1 mentorship + group sessions        **Placement Support:** Yes  
+**Price:** Competitive and affordable  
+      
+[Course details →](/prompt-engineering) • [Apply now →](/prompt-engineering/apply)`
+      }
+      
     if (message.includes('machine learning') || message.includes('ml')) {
-      return `Excellent! Our **Machine Learning & AI course** is comprehensive and industry-focused.
+      return `### Machine Learning & AI
 
-You'll master:
-- ML fundamentals and supervised/unsupervised learning
-- Deep Learning with TensorFlow and PyTorch
+Excellent! Our **Machine Learning & AI** program is comprehensive and industry-focused.
+
+**What you'll master**
+- ML fundamentals (supervised & unsupervised learning)
+- Deep Learning with TensorFlow & PyTorch
 - Natural Language Processing (NLP)
 - Computer Vision
-- Real-world projects and applications
+- Hands-on, project-based learning
 
-**Duration**: 12-16 weeks
-**Format**: Personalized 1:1 mentorship
-**Mentors**: Industry experts from top companies
-**Placement Support**: Yes, with global opportunities
-**Recognition**: Startup India partner, Swayam recognized
+**Duration:** 12–16 weeks  
+**Format:** Personalized 1:1 mentorship  
+**Mentors:** Industry experts  
+**Placement Support:** Yes — global opportunities  
+**Recognition:** Startup India partner, Swayam recognized
 
-Ready to start your AI journey? Visit /ml-ai or contact us for more details!`
+[Course details →](/ml-ai) • [Apply now →](/ml-ai/apply)`
     }
 
     return `We offer two main courses:
-1. **Machine Learning & AI** - Comprehensive ML and deep learning course
-2. **Prompt Engineering** - Master ChatGPT and LLM prompts
 
-Both courses feature personalized 1:1 mentorship and job placement support. Which course interests you?`
+  1. [**Machine Learning & AI**](/ml-ai) — Comprehensive ML & deep learning program
+  2. [**Prompt Engineering**](/prompt-engineering) — Master LLMs and prompt design
+
+  Both courses include personalized 1:1 mentorship and placement support. Which one interests you?`
   }
 
   // Mentorship questions
   if (message.includes('mentor') || message.includes('coaching')) {
-    return `Our **1:1 Mentorship Program** is the heart of AiSprint! 
+    return `### 1:1 Mentorship
 
-Each student gets:
-- A dedicated industry expert mentor
-- Personalized learning path
-- Weekly 1:1 sessions
-- Career guidance and job preparation
-- Access to exclusive resources
-- Lifetime community support
+Our **1:1 Mentorship Program** is the heart of AiSprint.
 
-Our mentors have experience from companies like Google, Microsoft, Amazon, and leading startups.
+Each student receives:
+- A dedicated industry mentor
+- A personalized learning path
+- Weekly 1:1 sessions and project reviews
+- Career guidance & interview prep
+- Access to exclusive resources and community
 
-Interested in learning more? Contact us or visit /courses!`
+Our mentors have experience at companies like Google, Microsoft, Amazon, and leading startups.
+
+[See courses →](/courses) • [Contact us →](/contact)`
   }
 
   // Placement/jobs
@@ -120,61 +125,60 @@ Interested in learning more? Contact us or visit /courses!`
     message.includes('career') ||
     message.includes('employment')
   ) {
-    return `We offer **Comprehensive Placement Support**:
+    return `### Placement & Career Support
 
-✓ Resume & LinkedIn optimization
-✓ Interview preparation
-✓ Coding practice and DSA training
-✓ Job interview connections
-✓ Global placement opportunities
-✓ Startup incubation support
+We provide **comprehensive placement support** to help you land jobs:
 
-Our students have been placed in top companies globally. We're recognized by Startup India and have strong industry connections.
+- Resume & LinkedIn optimization  
+- Interview preparation & mock interviews  
+- Coding practice and DSA training  
+- Job interview connections and referrals  
+- Global placement opportunities  
+- Startup incubation & interview pipelines
 
-Ready to transform your career? Apply for one of our courses today!`
+Our students are placed at top companies worldwide. Learn more on the [courses page →](/courses) or [contact our team →](/contact).`
   }
 
   // Pricing/pricing-related
   if (message.includes('price') || message.includes('cost') || message.includes('fee')) {
-    return `Our pricing is competitive and affordable! We offer flexible payment options.
+    return `### Pricing & Payment Options
 
-For exact pricing details, please:
-1. **Contact us** at support@aisprint.in
-2. **Visit** the course pages (/ml-ai or /prompt-engineering)
-3. **Fill out** the form to get a personalized quote
+Our pricing is competitive and we offer flexible payment plans.
 
-We also offer payment plans and financing options. Let's discuss what works best for you!`
+For exact pricing and personalized quotes:
+
+1. Email us at [support@aisprint.in](mailto:support@aisprint.in)  
+2. Visit the course pages: [ML & AI →](/ml-ai) · [Prompt Engineering →](/prompt-engineering)  
+3. Fill out the contact form for a tailored plan
+
+We also provide EMI and financing options for eligible candidates.`
   }
 
   // Eligibility
   if (message.includes('eligibility') || message.includes('require') || message.includes('prerequisite')) {
-    return `Great question! Our courses are designed for:
+    return `### Eligibility & Prerequisites
 
-**No strict prerequisites required**, but ideal candidates:
-- Have basic Python knowledge (or willing to learn)
-- Curious about AI and Machine Learning
-- Committed to 1:1 learning
-- Want hands-on project experience
+No strict prerequisites are required. Ideal candidates typically:
 
-Whether you're a student, career-changer, or professional - we have mentors who can guide you!
+- Have basic Python familiarity (or willingness to learn)  
+- Are curious about AI and ML  
+- Are committed to project-based, mentor-led learning  
+- Want real-world project experience
 
-Ready to start? Contact us to discuss your background and learning goals.`
+Whether you're a student, professional, or career-changer, we can craft a learning path that fits. [Contact us →](/contact)`
   }
 
   // Startup India / Recognition
   if (message.includes('startup india') || message.includes('swayam') || message.includes('recognition')) {
-    return `Yes! AiSprint is:
-✓ **Startup India recognized** - Official Startup India member
-✓ **Swayam recognized** - Advanced level course recognition
-✓ Industry-backed with partnerships with leading tech companies
+    return `### Recognition & Partnerships
 
-This means:
-- Credible and quality assured curriculum
-- Government-backed initiatives
-- Industry-aligned training
-- Career advancement opportunities
+Yes — AiSprint is recognized and partnered for quality education:
 
-Your training is recognized nationwide!`
+- **Startup India** recognized  
+- **Swayam** recognition for select programs  
+- Industry partnerships with leading tech companies
+
+This ensures a credible, industry-aligned curriculum and stronger career opportunities.`
   }
 
   return null
@@ -227,8 +231,8 @@ export async function POST(request: NextRequest) {
     
 To get more detailed information, I recommend:
 1. Visit our courses page at /courses
-2. Check out the specific course pages (/ml-ai or /prompt-engineering)
-3. Contact our team at support@aisprint.in or use the contact form at /contact
+2. Check out the specific course pages [ML & AI Course](/ml-ai) • [Apply now](/ml-ai/apply) or [Prompt Engineering Course](/prompt-engineering) • [Apply now](/prompt-engineering/apply)
+3. Contact our team at support@goaisprint.com or use the contact form at [Contact us](/contact)
 
 Our team would be happy to answer any specific questions!`
 
