@@ -21,7 +21,8 @@ const courses = [
     ],
     href: '/ml-ai',
     applyHref: '/ml-ai/apply',
-    price: '₹79,999',
+    price: '₹79,000',
+    emiAvailable: true,
   },
   {
     id: 'prompt-engineering',
@@ -43,7 +44,8 @@ const courses = [
     ],
     href: '/prompt-engineering',
     applyHref: '/prompt-engineering/apply',
-    price: '₹44,999',
+    price: '₹499',
+    emiAvailable: false,
   },
 ]
 
@@ -128,7 +130,12 @@ export default function CoursesOverviewSection() {
                     <p className="text-xs text-gray-400 font-body">Total investment</p>
                     <p className="text-2xl font-heading font-bold text-neutral-950">{course.price}</p>
                   </div>
-                  <span className="badge bg-green-50 text-green-700">EMI Available</span>
+                  {course.emiAvailable && (
+  <span className="badge bg-green-50 text-green-700">
+    EMI Available
+  </span>
+)}
+
                 </div>
                 <div className="flex gap-3">
                   <Link href={course.applyHref} className="btn-primary flex-1 justify-center">

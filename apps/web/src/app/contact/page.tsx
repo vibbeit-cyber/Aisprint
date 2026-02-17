@@ -46,7 +46,7 @@ export default function ContactPage() {
 
   return (
     <div className="pt-16">
-      <section className="bg-mesh pt-20 pb-16">
+      <section className="bg-white pt-20 pb-16">
         <div className="container-custom max-w-4xl text-center">
           <span className="badge-blue mb-4">Contact</span>
           <h1 className="section-heading mt-3 mb-4">Get in Touch</h1>

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const footerLinks = {
   Courses: [
@@ -20,24 +21,27 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-neutral-950 text-gray-400">
-      {/* Top section */}
       <div className="container-custom py-16">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-heading font-bold text-sm">
-                AI
-              </div>
-              <span className="font-heading font-bold text-lg text-white tracking-tight">
-                Ai<span className="text-brand-400">SPRINT</span>
-              </span>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/logo2.png"
+                alt="AiSprint Logo"
+                width={150}
+                height={40}
+                className="h-10 w-auto object-contain"
+                priority
+              />
             </Link>
+
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
               India&apos;s premier 1:1 live AI education platform. Partnered with Startup India and recognized by Swayam.
             </p>
+
             <div className="flex gap-3">
-              {/* Social icons */}
               {['LinkedIn', 'Twitter', 'YouTube'].map((social) => (
                 <a
                   key={social}
@@ -52,7 +56,6 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Trust badges */}
             <div className="flex flex-wrap gap-2 mt-6">
               <span className="badge bg-white/10 text-gray-300 text-xs">
                 🚀 Startup India Partner
@@ -86,7 +89,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="container-custom py-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-500">

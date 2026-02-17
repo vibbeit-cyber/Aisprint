@@ -53,7 +53,7 @@ export default function MLAIApplyPage() {
                     '4+ real deployment projects',
                     'PyTorch, HuggingFace, MLOps',
                     '6-month placement guarantee',
-                    '₹79,999 · EMI available',
+                    '₹79,000 · EMI available',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-sm text-brand-700 font-body">
                       <svg className="w-4 h-4 text-brand-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -72,7 +72,7 @@ export default function MLAIApplyPage() {
                 <ApplicationForm
                   courseType="ml-ai"
                   courseTitle="ML & AI Program"
-                  coursePrice="₹79,999"
+                  coursePrice="₹79,000"
                 />
               </div>
             </div>

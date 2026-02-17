@@ -2,19 +2,8 @@ import Link from 'next/link'
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-mesh pt-24 pb-20 md:pt-32 md:pb-28">
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(#2d3cf5 1px, transparent 1px), linear-gradient(90deg, #2d3cf5 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+    <section className="relative overflow-hidden bg-white pt-24 pb-20 md:pt-32 md:pb-28">
 
-      {/* Floating orbs */}
-      <div className="absolute top-20 right-[10%] w-72 h-72 rounded-full bg-brand-200/30 blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-[5%] w-64 h-64 rounded-full bg-accent-200/20 blur-3xl animate-float" style={{ animationDelay: '3s' }} />
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -36,12 +25,7 @@ export default function HeroSection() {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M2 8C60 4 120 2 150 5C180 8 240 4 298 8"
-                  stroke="#ff7d12"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
+
               </svg>
             </span>
             {' '}Starts With a{' '}

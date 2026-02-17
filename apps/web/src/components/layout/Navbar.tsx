@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const navLinks = [
   { label: 'Courses', href: '/courses' },
@@ -24,20 +25,22 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
-          : 'bg-transparent'
+          ? 'bg-white/100 backdrop-blur-md shadow-sm border-b border-gray-10'
+          : 'bg-white/100'
       }`}
     >
       <div className="container-custom">
         <nav className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-heading font-bold text-sm group-hover:bg-brand-700 transition-colors">
-              AI
-            </div>
-            <span className="font-heading font-bold text-lg text-neutral-950 tracking-tight">
-              Ai<span className="text-brand-600">SPRINT</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="NeuraLearn"
+              width={140}
+              height={36}
+              priority
+              className="h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Nav */}

@@ -53,7 +53,7 @@ export default function PromptEngineeringApplyPage() {
                     'GPT-4, Claude, Gemini hands-on',
                     'RAG systems with LangChain',
                     'No coding background required',
-                    '₹44,999 · EMI available',
+                    '₹499 ',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-sm text-brand-700 font-body">
                       <svg className="w-4 h-4 text-brand-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -72,7 +72,7 @@ export default function PromptEngineeringApplyPage() {
                 <ApplicationForm
                   courseType="prompt-engineering"
                   courseTitle="Prompt Engineering Program"
-                  coursePrice="₹44,999"
+                  coursePrice="₹499"
                 />
               </div>
             </div>

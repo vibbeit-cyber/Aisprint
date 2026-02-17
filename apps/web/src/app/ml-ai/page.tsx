@@ -99,7 +99,7 @@ export default function MLAIPage() {
   return (
     <div className="pt-16">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-mesh pt-20 pb-16">
+      <section className="relative overflow-hidden bg-white pt-20 pb-16">
         <div className="container-custom">
           <div className="max-w-3xl">
             <div className="flex flex-wrap gap-2 mb-6">
@@ -131,7 +131,7 @@ export default function MLAIPage() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/ml-ai/apply" className="btn-primary px-8 py-4 text-base">
-                Apply Now — ₹79,999
+                Apply Now — ₹79,000
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   ),
 
-  title: 'AiSprint — 1:1 Live AI & ML Courses | Global Placement Support',
+  title: 'AiSprint',
 
   description:
     'Master AI, Machine Learning, and Prompt Engineering with personalized 1:1 live mentorship. Global placement support, Startup India partner, Swayam recognized. Start your AI career today.',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: 'https://AiSprint.in',
     siteName: 'AiSprint',
     title:
-      'AiSprint — 1:1 Live AI & ML Courses | Global Placement Support',
+      'AiSprint ',
     description:
       'Master AI, Machine Learning, and Prompt Engineering with personalized 1:1 live mentorship. Startup India partner & Swayam recognized.',
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'AiSprint — 1:1 Live AI & ML Courses',
+    title: 'AiSprint',
     description:
       'Personalized 1:1 live mentorship in AI/ML. Global placement support. Startup India partner.',
     images: ['/og-image.png'],
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: '/favicon.ico',
+    icon: '/logo3.png',
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },

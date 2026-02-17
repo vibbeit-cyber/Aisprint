@@ -90,7 +90,7 @@ export default function PromptEngineeringPage() {
   return (
     <div className="pt-16">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-mesh pt-20 pb-16">
+      <section className="relative overflow-hidden bg-white pt-20 pb-16">
         <div className="absolute top-20 right-[5%] w-80 h-80 rounded-full bg-brand-200/20 blur-3xl animate-float" />
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
@@ -123,7 +123,7 @@ export default function PromptEngineeringPage() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/prompt-engineering/apply" className="btn-primary px-8 py-4 text-base">
-                Apply Now — ₹44,999
+                Apply Now — ₹499
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -132,7 +132,7 @@ export default function PromptEngineeringPage() {
                 <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                EMI available · No coding required
+                No coding required
               </div>
             </div>
           </div>

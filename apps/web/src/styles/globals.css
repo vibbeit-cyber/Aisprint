@@ -92,9 +92,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gradient mesh background */
 .bg-mesh {
-  background-color: #f8f9ff;
+  background-color: #000000;
   background-image:
-    radial-gradient(at 40% 20%, rgba(45, 60, 245, 0.08) 0px, transparent 50%),
+    radial-gradient(at 40% 20%, rgba(3, 6, 40, 0.08) 0px, transparent 50%),
     radial-gradient(at 80% 0%, rgba(255, 125, 18, 0.06) 0px, transparent 50%),
     radial-gradient(at 0% 50%, rgba(45, 60, 245, 0.05) 0px, transparent 50%),
     radial-gradient(at 60% 80%, rgba(45, 60, 245, 0.06) 0px, transparent 50%);

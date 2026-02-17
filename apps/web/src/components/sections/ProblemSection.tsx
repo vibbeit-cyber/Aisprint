@@ -61,13 +61,13 @@ export default function ProblemSection() {
         {/* Callout stat */}
         <div className="mt-12 max-w-2xl mx-auto">
           <div className="bg-neutral-950 rounded-2xl p-8 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-900/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-900/100 to-transparent" />
             <div className="relative z-10">
               <p className="text-4xl font-heading font-bold text-white mb-2">
                 ₹2.1 Lakh
               </p>
-              <p className="text-gray-400 text-sm font-body">
-                Average amount Indians spend on online AI courses before landing their first relevant job — mostly on courses that don&apos;t work.
+              <p className="text-white text-sm font-body">
+                Average amount Indians spend on online AI courses before landing their first relevant job  mostly on courses that don&apos;t work.
               </p>
             </div>
           </div>
