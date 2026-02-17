@@ -1,6 +1,13 @@
 import nodemailer from "nodemailer";
 import path from "path";
 
+// Check if SMTP is configured
+const isEmailEnabled =
+  process.env.SMTP_HOST &&
+  process.env.SMTP_PORT &&
+  process.env.SMTP_USER &&
+  process.env.SMTP_PASS
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
@@ -17,6 +24,12 @@ export async function sendApplicationEmail(data: {
   course: string;
 }) {
   const { name, email, course } = data;
+
+  // Skip email if not configured
+  if (!isEmailEnabled) {
+    console.log('[Email Disabled] SMTP not configured in environment')
+    return
+  }
 
   //const logoPath = path.join(process.cwd(), "public", "logo.png");
 

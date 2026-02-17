@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { LeadSchema } from '@/lib/validations'
 import { ZodError } from 'zod'
-import { sendApplicationEmail } from '@/lib/email'   // ✅ NEW IMPORT
+//import { sendApplicationEmail } from '@/lib/email'   // ✅ NEW IMPORT
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,13 +38,17 @@ export async function POST(request: NextRequest) {
     )
 
     const leadId = rows[0]?.id
-
-    // ✅ SEND EMAIL AFTER SUCCESSFUL INSERT
-    await sendApplicationEmail({
+/* 
+    // Send email in background (non-blocking)
+    // Don't await - let it send asynchronously
+    sendApplicationEmail({
       name: validated.name,
       email: validated.email,
       course: validated.course_type,
-    })
+    }).catch((emailError) => {
+      // Log email error but don't break the API response
+      console.error('[Email Send Error]', emailError)
+    }) */
 
     return NextResponse.json(
       {
