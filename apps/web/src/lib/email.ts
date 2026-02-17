@@ -27,7 +27,7 @@ export async function sendApplicationEmail(data: {
     subject: `Application Received — ${course}`,
     attachments: [
         {
-          filename: "logo.png",
+          filename: "/logo.png",
           path: logoPath,
           cid: "aisprintlogo",
         },
