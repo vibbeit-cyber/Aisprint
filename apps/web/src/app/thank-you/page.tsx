@@ -18,10 +18,9 @@ export default function ThankYouPage() {
             </svg>
           </div>
 
-          <h1 className="section-heading mb-4">Application Received! 🎉</h1>
+          <h1 className="section-heading text-4xl text-gray-600 mb-12">Application Received! 🎉</h1>
           <p className="text-lg text-gray-600 leading-relaxed mb-8 font-body">
-            Thank you for applying to AiSprint. Our admissions team will review your application and reach out within{' '}
-            <strong className="text-neutral-950">24 hours</strong> to schedule your free 30-minute orientation call.
+            Thank you for applying to AiSprint. Our admissions team will review your application and reach out within 24 hours to schedule your free 30-minute orientation call.
           </p>
 
           {/* What to expect */}

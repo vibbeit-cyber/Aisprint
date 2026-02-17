@@ -35,7 +35,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
-              alt="NeuraLearn"
+              alt="AiSprint_Logo"
               width={140}
               height={36}
               priority

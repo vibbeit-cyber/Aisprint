@@ -37,17 +37,18 @@ export default function HeroSection() {
           </p>
 
           {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
-            <Link href="/ml-ai/apply" className="btn-primary px-8 py-4 text-base">
-              Apply for ML & AI Course
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-            <Link href="/prompt-engineering/apply" className="btn-secondary px-8 py-4 text-base">
-              Explore Prompt Engineering
-            </Link>
-          </div>
+<div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
+  
+  <Link href="/ml-ai/apply" className="btn-primary px-8 py-4 text-base">
+    Apply for ML & AI Course
+  </Link>
+
+  <Link href="/prompt-engineering/apply" className="btn-primary px-8 py-4 text-base">
+    Explore Prompt Engineering
+  </Link>
+
+</div>
+
 
           {/* Social proof row */}
           <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500">

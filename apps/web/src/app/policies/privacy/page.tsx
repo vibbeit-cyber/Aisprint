@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — AiSprint',
-  description: 'AiSprint Privacy Policy. How we collect, use, and protect your personal information.',
+  title: 'Privacy Policy — Aisprint',
+  description: 'Aisprint Privacy Policy. How we collect, use, and protect your personal information.',
 }
 
 export default function PrivacyPolicyPage() {
@@ -124,9 +124,9 @@ export default function PrivacyPolicyPage() {
               <h2 className="font-heading font-bold text-xl text-neutral-950 mb-3">11. Contact Us</h2>
               <p>For privacy-related queries or to exercise your rights, contact our Data Protection Officer:</p>
               <div className="mt-3 p-4 bg-gray-50 rounded-xl text-sm">
-                <p><strong>AiSprint Technologies Pvt. Ltd.</strong></p>
-                <p>Email: privacy@AiSprint.in</p>
-                <p>Address: Bengaluru, Karnataka, India – 560001</p>
+                <p><strong>Aisprint Technologies Pvt. Ltd.</strong></p>
+                <p>Email: aisprintglobal@gmail.com </p>
+                <p>Address: Chennai, Tamil Nadu, India – 600032</p>
                 <p>Grievance Officer: Available Monday–Friday, 9AM–6PM IST</p>
               </div>
             </div>

@@ -42,7 +42,7 @@ export default function PlacementSection() {
     <section className="section-padding bg-gradient-to-b from-brand-950 to-neutral-950 text-white">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="badge bg-brand-800/80 text-brand-200 mb-4">Placement Support</span>
+          <span className="badge bg-brand-600/80 text-brand-200 mb-4">Placement Support</span>
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mt-3 mb-5">
             We Don&apos;t Stop Until{' '}
             <span className="text-brand-300">You Get Hired</span>
