@@ -7,9 +7,9 @@ const contactInfo = [
   {
     icon: '📧',
     label: 'Email Us',
-    value: 'aisprintglobal@gmail.com',
+    value: 'admission@goaisprint.com',
     sub: 'We reply within 24 hours on business days',
-    href: 'mailto:aisprintglobal@gmail.com',
+    href: 'mailto:admission@goaisprint.com',
   },
   {
     icon: '📞',

@@ -4,6 +4,10 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ChatBox from '@/components/ChatBox'
 
+import GoogleAnalytics from '@/components/analytics/googleanalytics'
+import GoogleTagManager from '@/components/analytics/googletagmanager'
+import GTMNoScript from '@/components/analytics/GTMNoScript'
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -33,10 +37,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://AiSprint.in',
+    url: 'https://aisprint.in',
     siteName: 'AiSprint',
-    title:
-      'AiSprint ',
+    title: 'AiSprint',
     description:
       'Master AI, Machine Learning, and Prompt Engineering with personalized 1:1 live mentorship. Startup India partner & Swayam recognized.',
     images: [
@@ -73,7 +76,7 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION as string,
+    google: process.env.GOOGLE_SITE_VERIFICATION || '',
   },
 }
 
@@ -85,6 +88,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Tag Manager Script */}
+        <GoogleTagManager />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -92,7 +98,14 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
+
       <body className="font-body antialiased bg-white text-neutral-950">
+        {/* GTM NoScript - must be immediately after body */}
+        <GTMNoScript />
+
+        {/* Google Analytics (Only keep if NOT using GA via GTM) */}
+        <GoogleAnalytics />
+
         <Navbar />
         <main>{children}</main>
         <Footer />
