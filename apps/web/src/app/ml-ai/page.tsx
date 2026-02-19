@@ -233,7 +233,7 @@ export default function MLAIPage() {
       </section>
 
       {/* Placement */}
-      <section className="section-padding bg-brand-950 text-white">
+      <section className="section-padding bg-gradient-to-b from-brand-950 to-neutral-950 text-white">
         <div className="container-custom max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">Placement Support Included</h2>

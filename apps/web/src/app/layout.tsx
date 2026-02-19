@@ -10,44 +10,44 @@ import GTMNoScript from '@/components/analytics/GTMNoScript'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    process.env.NEXT_PUBLIC_SITE_URL || 'http://goaisprint.com'
   ),
 
-  title: 'AiSprint',
-
+title: {
+    default: 'AiSprint — Become the Top 1% AI Experts',
+    template: '%s | AiSprint',
+  },
   description:
-    'Master AI, Machine Learning, and Prompt Engineering with personalized 1:1 live mentorship. Global placement support, Startup India partner, Swayam recognized. Start your AI career today.',
-
+    'Fast paced, career-focused AI education with 1:1 live mentorship and placement support. Master AI, ML, and prompt engineering with personalized guidance.',
   keywords: [
     'AI course India',
     'machine learning course',
-    'prompt engineering course',
-    '1:1 live mentorship',
-    'AI placement',
-    'ML course online',
-    'Startup India AI',
-    'Swayam AI course',
-    'AI career support',
-    'personalized AI training',
+    'AI mentorship',
+    '1:1 AI training',
+    'AI career',
+    'prompt engineering',
+    'AI placement support',
+    'AiSprint',
   ],
-
   authors: [{ name: 'AiSprint' }],
   creator: 'AiSprint',
-
+  publisher: 'AiSprint',
+  applicationName: 'AiSprint',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://aisprint.in',
+    url: 'https://goaisprint.com',
     siteName: 'AiSprint',
-    title: 'AiSprint',
+    title: 'AiSprint — Become the Top 1% AI Experts',
     description:
-      'Master AI, Machine Learning, and Prompt Engineering with personalized 1:1 live mentorship. Startup India partner & Swayam recognized.',
+      'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/metatag.png',
         width: 1200,
         height: 630,
-        alt: 'AiSprint — Premier AI Education Platform',
+        alt: 'AiSprint — AI Career Acceleration Platform',
+        type: 'image/png',
       },
     ],
   },
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: 'AiSprint',
     description:
       'Personalized 1:1 live mentorship in AI/ML. Global placement support. Startup India partner.',
-    images: ['/og-image.png'],
+    images: ['/metatag.png'],
   },
 
   robots: {
