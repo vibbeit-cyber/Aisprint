@@ -2,16 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { LeadSchema } from '@/lib/validations'
 import { ZodError } from 'zod'
-//import { sendApplicationEmail } from '@/lib/email'   // ✅ NEW IMPORT
+import { sendApplicationEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    // Validate input
+    // 1️⃣ Validate input
     const validated = LeadSchema.parse(body)
 
-    // Get request metadata
+    // 2️⃣ Capture request metadata
     const ip =
       request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
       request.headers.get('x-real-ip') ||
@@ -19,12 +19,14 @@ export async function POST(request: NextRequest) {
 
     const userAgent = request.headers.get('user-agent') || null
 
-    // Insert lead into database
+    // 3️⃣ Insert into PostgreSQL
     const rows = await query<{ id: string }>(
-      `INSERT INTO leads 
-       (name, email, phone, experience, career_goal, course_type, ip_address, user_agent)
-       VALUES ($1, $2, $3, $4, $5, $6, $7::inet, $8)
-       RETURNING id`,
+      `
+      INSERT INTO leads 
+      (name, email, phone, experience, career_goal, course_type, ip_address, user_agent)
+      VALUES ($1, $2, $3, $4, $5, $6, $7::inet, $8)
+      RETURNING id
+      `,
       [
         validated.name,
         validated.email,
@@ -38,17 +40,15 @@ export async function POST(request: NextRequest) {
     )
 
     const leadId = rows[0]?.id
-/* 
-    // Send email in background (non-blocking)
-    // Don't await - let it send asynchronously
+
+    // 4️⃣ Send email (non-blocking)
     sendApplicationEmail({
       name: validated.name,
       email: validated.email,
       course: validated.course_type,
     }).catch((emailError) => {
-      // Log email error but don't break the API response
       console.error('[Email Send Error]', emailError)
-    }) */
+    })
 
     return NextResponse.json(
       {
