@@ -1,11 +1,20 @@
+
+import {
+  UserCheck,
+  PhoneCall,
+  Monitor,
+  FolderKanban,
+  Target,
+} from "lucide-react";
+
 export default function HowItWorksSection() {
   const steps = [
     {
-      step: '01',
+      step: 'UserCheck',
       title: 'Apply & Get Matched',
       description:
         'Fill out a short application. Our team reviews your background, goals, and schedule to match you with the right mentor within 48 hours.',
-      icon: '📋',
+        icon: <UserCheck size={28}/>,
       detail: 'Takes 5 minutes',
     },
     {
@@ -13,7 +22,7 @@ export default function HowItWorksSection() {
       title: 'Free Orientation Call',
       description:
         'A 30-minute session with your assigned mentor to align on goals, assess your starting point, and build a personalized curriculum just for you.',
-      icon: '📞',
+      icon: <PhoneCall size={28}/>,
       detail: '30-minute call',
     },
     {
@@ -21,7 +30,7 @@ export default function HowItWorksSection() {
       title: 'Weekly 1:1 Live Sessions',
       description:
         '2× weekly live video sessions directly with your mentor. Share screen, work through problems together, get real-time code review and explanations.',
-      icon: '🖥️',
+      icon: <Monitor size={28}/>,
       detail: '2× per week',
     },
     {
@@ -29,7 +38,7 @@ export default function HowItWorksSection() {
       title: 'Build Real Projects',
       description:
         'Between sessions, you work on guided assignments and real projects. Your mentor reviews every submission and gives detailed written feedback.',
-      icon: '🏗️',
+      icon: <FolderKanban size={28}/>,
       detail: '3–5 projects total',
     },
     {
@@ -37,7 +46,7 @@ export default function HowItWorksSection() {
       title: 'Interview Prep & Placement',
       description:
         'In the final weeks, intensive mock interviews, portfolio review, and direct introductions to hiring companies in our network.',
-      icon: '🎯',
+      icon: <Target size={28}/>,
       detail: 'Placement within 6 months',
     },
   ]
