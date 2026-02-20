@@ -22,19 +22,23 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://goaisprint.com',
     siteName: 'AiSprint',
+    title: 'AiSprint — Become the Top 1% AI Experts',
+    description: 'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
     images: [
       {
-        url: '/metatag.png', // from public folder
+        url: 'https://goaisprint.com/metatag.png',
         width: 1200,
         height: 630,
-        alt: 'AiSprint',
+        alt: 'AiSprint — AI Career Acceleration Platform',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    images: ['/metatag.png'],
+    title: 'AiSprint — Become the Top 1% AI Experts',
+    description: 'Personalized 1:1 live mentorship in AI/ML. Global placement support.',
+    images: ['https://goaisprint.com/metatag.png'],
   },
 
   icons: {
