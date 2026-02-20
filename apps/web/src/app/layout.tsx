@@ -9,21 +9,21 @@ import GoogleTagManager from '@/components/analytics/googletagmanager'
 import GTMNoScript from '@/components/analytics/GTMNoScript'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://goaisprint.com/metatag.png'),
+  metadataBase: new URL('https://goaisprint.com'),
 
   alternates: {
-    canonical: 'https://goaisprint.com/metatag.png',
+    canonical: 'https://goaisprint.com',
   },
 
   openGraph: {
     type: 'website',
-    url: 'https://goaisprint.com/metatag.png',
+    url: 'https://goaisprint.com',
     siteName: 'AiSprint',
     images: [
       {
-        url: 'https://goaisprint.com/metatag.png',
-        width: 2400,
-        height: 1080,
+        url: 'https://goaisprint.com/metatag.png?v=1',
+        width: 1200,
+        height: 630,
         alt: 'AiSprint',
       },
     ],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    images: ['https://goaisprint.com/metatag.png'],
+    images: ['https://goaisprint.com/metatag.png?v=1'],
   },
 
   icons: {
