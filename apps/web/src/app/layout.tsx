@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
     images: [
       {
-        url: 'https://goaisprint.com/metatag.png',
+        url: 'https://goaisprint.com/logo3.png',
         width: 1200,
         height: 630,
         alt: 'AiSprint — AI Career Acceleration Platform',
