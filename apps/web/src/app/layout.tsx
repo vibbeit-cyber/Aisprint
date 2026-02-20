@@ -9,10 +9,10 @@ import GoogleTagManager from '@/components/analytics/googletagmanager'
 import GTMNoScript from '@/components/analytics/GTMNoScript'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://goaisprint.com'),
+  metadataBase: new URL('https://goaisprint.com/metatag.png'),
 
   alternates: {
-    canonical: 'https://goaisprint.com',
+    canonical: 'https://goaisprint.com/metatag.png',
   },
 
   openGraph: {
