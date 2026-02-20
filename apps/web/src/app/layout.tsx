@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: 'website',
-    url: 'https://goaisprint.com',
+    url: 'https://goaisprint.com/metatag.png',
     siteName: 'AiSprint',
     images: [
       {
