@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
@@ -13,7 +14,7 @@ interface Message {
 const INITIAL_MESSAGE: Message = {
   id: '0',
   content:
-    "Hello! 👋 Welcome to AiSprint. I'm your AI assistant. How can I help you today? Feel free to ask about our courses, mentorship programs, or any questions about AI and Machine Learning.",
+    "Hello! 👋 Welcome to Aisprint. I'm your AI assistant. How can I help you today? Feel free to ask about our courses, mentorship programs, or any questions about AI and Machine Learning.",
   sender: 'bot',
   timestamp: new Date(),
 }
@@ -94,8 +95,8 @@ export default function ChatBox() {
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
           isOpen
-          ? 'bg-gradient-to-r from-brand-600 to-brand-700'
-          : 'bg-gradient-to-r from-brand-600 to-brand-700 hover:shadow-xl'
+          ? 'hidden md:flex bg-neutral-950'
+          : 'flex bg-neutral-900 hover:shadow-xl'
           
         }`}
         title="Open AI Assistant"
@@ -119,13 +120,13 @@ export default function ChatBox() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 max-w-full h-[32rem] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
+        <div className="fixed inset-0 md:inset-auto md:bottom-24 md:right-6 z-40 md:w-96 w-full md:h-[32rem] h-full bg-white md:rounded-2xl rounded-none shadow-2xl flex flex-col overflow-hidden border border-gray-200">
           
           {/* Header */}
-            <div className="bg-gradient-to-r from-brand-600 to-brand-700 text-white p-4 flex items-center justify-between">
+            <div className="bg-neutral-950 text-white p-4 flex items-center justify-between">
 
             <div>
-              <h3 className="font-semibold text-sm">AiSprint Assistant</h3>
+              <h3 className="font-semibold text-sm">Aisprint Assistant</h3>
               <p className="text-xs text-blue-100">Online</p>
             </div>
 
@@ -149,7 +150,7 @@ export default function ChatBox() {
                 <div
                   className={`max-w-xs px-4 py-3 rounded-2xl ${
                     message.sender === 'user'
-                      ? 'bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-br-none'
+                      ? 'bg-neutral-950 text-white rounded-br-none'
                       : 'bg-white text-gray-900 border border-gray-200 rounded-bl-none shadow-sm'
                   }`}
                 >
@@ -167,7 +168,7 @@ export default function ChatBox() {
                   <p
                     className={`text-xs mt-2 ${
                       message.sender === 'user'
-                        ? 'text-brand-100'
+                        ? 'text-gray-400'
                         : 'text-gray-500'
                     }`}
                   >
@@ -213,13 +214,13 @@ export default function ChatBox() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Type your message..."
               disabled={isLoading}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm"
             />
 
             <button
               type="submit"
               disabled={isLoading || !inputValue.trim()}
-              className="bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center"
+              className="bg-neutral-950 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center"
 
             >
               ➤
