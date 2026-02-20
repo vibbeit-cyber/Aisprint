@@ -40,12 +40,12 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: 'https://goaisprint.com',
     siteName: 'AiSprint',
-    title: 'AiSprint — Become the Top 1% AI Experts',
+/*     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
-      'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
+      'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.', */
     images: [
       {
-        url: 'https://goaisprint.com/logo3.png',
+        url: 'https://goaisprint.com/metatag.png',
         width: 1200,
         height: 630,
         alt: 'AiSprint — AI Career Acceleration Platform',
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'AiSprint — Become the Top 1% AI Experts',
+/*     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
-      'Personalized 1:1 live mentorship in AI/ML. Global placement support.',
+      'Personalized 1:1 live mentorship in AI/ML. Global placement support.', */
     images: ['https://goaisprint.com/metatag.png'],
   },
 
