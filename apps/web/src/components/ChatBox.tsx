@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
@@ -93,10 +92,10 @@ export default function ChatBox() {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
+        className={`fixed bottom-6 right-6 ${isOpen ? 'z-30' : 'z-50'} w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center ${
           isOpen
-          ? 'hidden md:flex bg-neutral-950'
-          : 'flex bg-neutral-900 hover:shadow-xl'
+          ? 'bg-neutral-950'
+          : 'bg-neutral-900 hover:shadow-xl'
           
         }`}
         title="Open AI Assistant"
@@ -120,26 +119,27 @@ export default function ChatBox() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed inset-0 md:inset-auto md:bottom-24 md:right-6 z-40 md:w-96 w-full md:h-[32rem] h-full bg-white md:rounded-2xl rounded-none shadow-2xl flex flex-col overflow-hidden border border-gray-200">
+        <div className="fixed inset-0 md:inset-auto md:bottom-24 md:right-6 z-50 md:w-96 w-full md:h-[32rem] h-full bg-white pt-6 md:pt-0 md:rounded-2xl rounded-none shadow-2xl flex flex-col overflow-hidden border border-gray-200">
           
           {/* Header */}
-            <div className="bg-neutral-950 text-white p-4 flex items-center justify-between">
+            <div className="sticky top-0 z-50 bg-neutral-950 text-white p-3 md:p-4 flex items-center justify-between flex-shrink-0">
 
-            <div>
-              <h3 className="font-semibold text-sm">Aisprint Assistant</h3>
+            <div className="min-w-0">
+              <h3 className="font-semibold text-xs md:text-sm truncate">Sprint.ai</h3>
               <p className="text-xs text-blue-100">Online</p>
             </div>
 
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 p-1 rounded-lg"
+              className="text-white hover:bg-white/20 p-3 md:p-2 rounded-lg flex-shrink-0 ml-2"
+              aria-label="Close chat"
             >
               ✕
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4 bg-gray-50">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -206,7 +206,7 @@ export default function ChatBox() {
           {/* Input */}
           <form
             onSubmit={handleSendMessage}
-            className="border-t border-gray-200 p-4 bg-white flex gap-2"
+            className="border-t border-gray-200 p-3 md:p-4 bg-white flex gap-2 flex-shrink-0"
           >
             <input
               type="text"
