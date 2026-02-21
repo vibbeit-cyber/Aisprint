@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
+
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ChatBox from '@/components/ChatBox'
@@ -38,17 +39,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://goaisprint.com',
+    url: '/',
     siteName: 'AiSprint',
     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
       'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
     images: [
       {
-        url: 'https://goaisprint.com/logo3.png',
+        url: '/metatag.png', // MUST exist in /public
         width: 1200,
         height: 630,
-        alt: 'AiSprint — AI Career Acceleration Platform',
+        alt: 'AiSprint — Become the Top 1% AI Experts',
       },
     ],
   },
@@ -58,16 +59,12 @@ export const metadata: Metadata = {
     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
       'Personalized 1:1 live mentorship in AI/ML. Global placement support.',
-    images: ['https://goaisprint.com/metatag.png'],
+    images: ['/metatag.png'],
   },
 
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
   },
 
   icons: {
@@ -89,8 +86,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Facebook App ID (optional but removes warnings) */}
+        <meta property="fb:app_id" content="1234567890" />
+
         <GoogleTagManager />
 
+        {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
