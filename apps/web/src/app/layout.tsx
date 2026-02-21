@@ -9,8 +9,11 @@ import GoogleAnalytics from '@/components/analytics/googleanalytics'
 import GoogleTagManager from '@/components/analytics/googletagmanager'
 import GTMNoScript from '@/components/analytics/GTMNoScript'
 
+const siteUrl = 'https://goaisprint.com'
+const imageUrl = 'https://goaisprint.com/metatag.png'
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://goaisprint.com'),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: 'AiSprint — Become the Top 1% AI Experts',
@@ -20,33 +23,17 @@ export const metadata: Metadata = {
   description:
     'Fast paced, career-focused AI education with 1:1 live mentorship and placement support. Master AI, ML, and prompt engineering with personalized guidance.',
 
-  keywords: [
-    'AI course India',
-    'machine learning course',
-    'AI mentorship',
-    '1:1 AI training',
-    'AI career',
-    'prompt engineering',
-    'AI placement support',
-    'AiSprint',
-  ],
-
-  authors: [{ name: 'AiSprint' }],
-  creator: 'AiSprint',
-  publisher: 'AiSprint',
-  applicationName: 'AiSprint',
-
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: '/',
+    url: siteUrl,
     siteName: 'AiSprint',
     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
       'Fast paced, career-focused AI education with 1:1 live mentorship and placement support.',
     images: [
       {
-        url: '/metatag.png', // MUST exist in /public
+        url: imageUrl,
         width: 1200,
         height: 630,
         alt: 'AiSprint — Become the Top 1% AI Experts',
@@ -59,22 +46,16 @@ export const metadata: Metadata = {
     title: 'AiSprint — Become the Top 1% AI Experts',
     description:
       'Personalized 1:1 live mentorship in AI/ML. Global placement support.',
-    images: ['/metatag.png'],
+    images: [imageUrl],
+  },
+
+  icons: {
+    icon: '/logo3.png',
   },
 
   robots: {
     index: true,
     follow: true,
-  },
-
-  icons: {
-    icon: '/logo3.png',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || '',
   },
 }
 
@@ -84,14 +65,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        {/* Facebook App ID (optional but removes warnings) */}
+        {/* FORCE OG TAGS FOR WHATSAPP RELIABILITY */}
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:secure_url" content={imageUrl} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:image" content={imageUrl} />
+
         <meta property="fb:app_id" content="1234567890" />
 
         <GoogleTagManager />
 
-        {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
