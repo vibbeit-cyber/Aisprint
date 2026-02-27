@@ -2,31 +2,27 @@ import { NextRequest, NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { LeadSchema } from '@/lib/validations'
 import { ZodError } from 'zod'
-import { sendApplicationEmail } from '@/lib/email'
+import { sendLeadEmails } from '../../../lib/email.service'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    // 1️⃣ Validate input
+    // Validate input
     const validated = LeadSchema.parse(body)
 
-    // 2️⃣ Capture request metadata
+    // Get request metadata
     const ip =
       request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
       request.headers.get('x-real-ip') ||
       null
-
     const userAgent = request.headers.get('user-agent') || null
 
-    // 3️⃣ Insert into PostgreSQL
-    const rows = await query<{ id: string }>(
-      `
-      INSERT INTO leads 
-      (name, email, phone, experience, career_goal, course_type, ip_address, user_agent)
-      VALUES ($1, $2, $3, $4, $5, $6, $7::inet, $8)
-      RETURNING id
-      `,
+    // Insert lead into database
+    const rows = await query<{ id: string; name: string; email: string; phone: string; experience: string; career_goal: string; course_type: string; created_at: Date }>(
+      `INSERT INTO leads (name, email, phone, experience, career_goal, course_type, ip_address, user_agent)
+       VALUES ($1, $2, $3, $4, $5, $6, $7::inet, $8)
+       RETURNING id, name, email, phone, experience, career_goal, course_type, created_at`,
       [
         validated.name,
         validated.email,
@@ -39,22 +35,32 @@ export async function POST(request: NextRequest) {
       ]
     )
 
-    const leadId = rows[0]?.id
+    const lead = rows[0]
 
-    // 4️⃣ Send email (non-blocking)
-    sendApplicationEmail({
-      name: validated.name,
-      email: validated.email,
-      course: validated.course_type,
-    }).catch((emailError) => {
-      console.error('[Email Send Error]', emailError)
+    if (!lead) {
+      throw new Error('Failed to insert lead')
+    }
+
+    // Send emails asynchronously (don't block response)
+    // If emails fail, lead is still saved — emails logged as failed
+    sendLeadEmails({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      experience: lead.experience,
+      career_goal: lead.career_goal,
+      course_type: lead.course_type as 'ml-ai' | 'prompt-engineering',
+      created_at: lead.created_at,
+    }).catch((error: unknown) => {
+      // Log email failure but don't crash
+      console.error('[API Lead] Email sending failed:', error)
     })
 
     return NextResponse.json(
       {
         success: true,
         message: 'Application submitted successfully',
-        id: leadId,
+        id: lead.id,
       },
       { status: 201 }
     )
@@ -73,7 +79,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.error('[Lead API Error]', error)
+    // Log error in production (use your logging service)
+    console.error('[API Lead] Error:', error)
 
     return NextResponse.json(
       {
