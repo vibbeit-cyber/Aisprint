@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAuth } from '@/components/providers/AuthProvider'
 
 const navLinks = [
   { label: 'Courses', href: '/courses' },
@@ -14,12 +15,22 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { isAuthenticated, user, signout, isLoading } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleSignout = async () => {
+    try {
+      await signout()
+      setIsOpen(false)
+    } catch (error) {
+      console.error('Sign out failed:', error)
+    }
+  }
 
   return (
     <header
@@ -30,26 +41,26 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <nav className="flex items-center justify-between h-16 md:h-18">
+        <nav className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
-              alt="AiSprint_Logo"
+              alt="AIsprint Logo"
               width={140}
               height={36}
               priority
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-all duration-150 font-body"
+                className="px-6 py-3 text-base font-medium text-neutral-600 hover:text-brand-600 rounded-lg hover:bg-neutral-50 transition-all duration-150"
               >
                 {link.label}
               </Link>
@@ -57,16 +68,54 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/ml-ai/apply"
-              className="btn-primary text-sm px-5 py-2.5"
-            >
-              Apply Now
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
+          <div className="hidden md:flex items-center gap-4">
+            {!isLoading && !isAuthenticated ? (
+              <>
+                <Link
+                  href="/auth/signin"
+                  className="px-6 py-3 text-base font-medium text-neutral-600 hover:text-brand-600 rounded-lg hover:bg-neutral-50 transition-all duration-150"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="btn-primary text-base px-6 py-3"
+                >
+                  Sign Up
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </>
+            ) : !isLoading ? (
+              <>
+                {/* show avatar + username when available */}
+                {user && (
+                  <div className="flex items-center gap-3 mr-4">
+                    <img
+                      src={user.profile_image_url || '/avatar-placeholder.png'}
+                      alt="avatar"
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <span className="text-base font-medium text-neutral-700">
+                      {user.username}
+                    </span>
+                  </div>
+                )}
+                <Link
+                  href="/dashboard"
+                  className="px-6 py-3 text-base font-medium text-neutral-600 hover:text-brand-600 rounded-lg hover:bg-neutral-50 transition-all duration-150"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleSignout}
+                  className="btn-primary text-base px-6 py-3"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : null}
           </div>
 
           {/* Mobile toggle */}
@@ -89,26 +138,65 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 pb-4">
-            <div className="flex flex-col gap-1 pt-3 px-2">
+          <div className="md:hidden bg-white border-t border-neutral-200 pb-6">
+            <div className="flex flex-col gap-2 pt-4 px-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all font-body"
+                  className="px-6 py-4 text-base font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all"
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-3 px-2">
-                <Link
-                  href="/ml-ai/apply"
-                  onClick={() => setIsOpen(false)}
-                  className="btn-primary w-full justify-center"
-                >
-                  Apply Now
-                </Link>
+              <div className="mt-4 px-4 border-t border-neutral-200 pt-4">
+                {!isLoading && !isAuthenticated ? (
+                  <>
+                    <Link
+                      href="/auth/signin"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-6 py-4 text-base font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all text-center mb-3"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                      className="btn-primary w-full justify-center text-base py-4"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                ) : !isLoading ? (
+                  <>
+                    {user && (
+                      <div className="flex items-center gap-3 mb-6 px-6">
+                        <img
+                          src={user.profile_image_url || '/avatar-placeholder.png'}
+                          alt="avatar"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <span className="text-base font-medium text-neutral-700">
+                          {user.username}
+                        </span>
+                      </div>
+                    )}
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-6 py-4 text-base font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all text-center mb-3"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleSignout}
+                      className="btn-primary w-full text-base py-4"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>
