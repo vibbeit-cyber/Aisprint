@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     // send confirmation email to user
     try {
       const { sendSignupConfirmation } = await import('@/lib/email.service')
-      await sendSignupConfirmation({ name: user.name, email: user.email })
+      await sendSignupConfirmation({ name: user.name as string, email: user.email as string })
     } catch (err) {
       console.error('Failed to send sign-up email', err)
     }
