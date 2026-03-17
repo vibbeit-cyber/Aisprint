@@ -63,7 +63,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-gray-50 -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="badge bg-gray-100 text-gray-900 mb-4">Student Stories</span>

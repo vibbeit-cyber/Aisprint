@@ -36,21 +36,21 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/100 backdrop-blur-md shadow-sm border-b border-gray-10'
-          : 'bg-white/100'
+          ? 'bg-white/100 backdrop-blur-md shadow-sm border-b border-gray-200'
+          : 'bg-white/100 border-b border-gray-100'
       }`}
     >
       <div className="container-custom">
-        <nav className="flex items-center justify-between h-20 md:h-24">
+        <nav className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
               alt="AIsprint Logo"
-              width={140}
-              height={36}
+              width={120}
+              height={30}
               priority
-              className="h-14 w-auto object-contain"
+              className="h-10 w-auto object-contain"
             />
           </Link>
 

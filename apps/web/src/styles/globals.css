@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .section-heading {
-    @apply font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-neutral-950 leading-tight tracking-tight;
+    @apply font-heading text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-neutral-950 leading-tight tracking-tight;
   }
 
   .section-subheading {
@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .section-padding {
-    @apply py-20 md:py-28;
+    @apply py-16 md:py-20;
   }
 }
 

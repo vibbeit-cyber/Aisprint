@@ -28,7 +28,7 @@ export default function PartnersSection() {
 
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-white -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="badge-blue mb-4">Trust & Recognition</span>

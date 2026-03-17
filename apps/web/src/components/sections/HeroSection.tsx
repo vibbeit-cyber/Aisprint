@@ -69,10 +69,10 @@ Learn AI With a Dedicated Mentor        </h1>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="/ml-ai" className="btn-primary px-6 py-2 text-sm">
+            <Link href="/ml-ai" className="btn-primary px-6 py-2">
               ML & AI course
             </Link>
-            <Link href="/prompt-engineering" className="btn-primary px-6 py-2 text-sm">
+            <Link href="/prompt-engineering" className="btn-primary px-6 py-2">
               Prompt Engg. course
             </Link>
           </div>

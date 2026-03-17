@@ -51,7 +51,7 @@ export default function CoursesOverviewSection() {
   ]
 
   return (
-    <section className="py-24 bg-neutral-50">
+    <section className="section-padding bg-neutral-50 -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto text-center mb-20">
           <span className="badge bg-neutral-100 text-neutral-700 px-6 py-3 mb-6 text-base">

@@ -37,7 +37,7 @@ export default function SolutionSection() {
   ]
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-white -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left: copy */}

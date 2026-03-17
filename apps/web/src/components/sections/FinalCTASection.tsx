@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function FinalCTASection() {
   return (
-    <section className="section-padding relative overflow-hidden bg-neutral-950">
+    <section className="section-padding relative overflow-hidden bg-neutral-950 -mt-6 md:-mt-8">
 
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center">
@@ -37,7 +37,7 @@ export default function FinalCTASection() {
             </span>
           </div> 
 
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+          <h2 className="font-heading text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight tracking-tight mb-6">
             The Best Time to Start Your AI Career Was Yesterday.{' '}
             <span className="text-white/80">The Second Best Is Now.</span>
           </h2>

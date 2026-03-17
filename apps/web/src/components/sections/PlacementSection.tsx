@@ -74,11 +74,11 @@ export default function PlacementSection() {
   ]
 
   return (
-    <section className="section-padding bg-neutral-950 text-white">
+    <section className="section-padding bg-neutral-950 text-white -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="badge bg-gray-900/80 text-white mb-4">Placement Support</span>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mt-3 mb-5">
+          <h2 className="font-heading text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight tracking-tight mt-3 mb-5">
             We Don&apos;t Stop Until You Get Hired
           </h2>
           <p className="text-gray-200/80 text-lg leading-relaxed">
@@ -125,7 +125,7 @@ export default function PlacementSection() {
             { value: '200+', label: 'Hiring partners' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="font-heading text-3xl font-bold text-white mb-1">{stat.value}</p>
+              <p className="font-heading text-lg md:text-xl font-bold text-white mb-1">{stat.value}</p>
               <p className="text-xs text-white/60 font-body">{stat.label}</p>
             </div>
           ))}
