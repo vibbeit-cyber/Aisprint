@@ -1,19 +1,18 @@
 import { MetadataRoute } from "next"
-import { getAllCategories, getLatestBlogs } from "@/lib/blog/supabase-queries"
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.goaisprint.com"
 
-  // -----------------------------
-  // Static Pages
-  // -----------------------------
-  const staticPages: MetadataRoute.Sitemap = [
+  return [
+    // Home
     {
       url: `${baseUrl}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
     },
+
+    // Main Pages
     {
       url: `${baseUrl}/courses`,
       lastModified: new Date(),
@@ -26,6 +25,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+
+    // Courses
     {
       url: `${baseUrl}/ml-ai`,
       lastModified: new Date(),
@@ -50,6 +51,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+
+    // Blog
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+
+    // Policies
     {
       url: `${baseUrl}/policies/privacy`,
       lastModified: new Date(),
@@ -68,61 +79,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.5,
     },
-  ]
-
-  // -----------------------------
-  // Blog Home
-  // -----------------------------
-  const blogHome: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-  ]
-
-  // -----------------------------
-  // Dynamic Data (SAFE)
-  // -----------------------------
-  let categoryPages: MetadataRoute.Sitemap = []
-  let blogPages: MetadataRoute.Sitemap = []
-
-  try {
-    const categories = await getAllCategories()
-
-    categoryPages = categories.map((cat) => ({
-      url: `${baseUrl}/blog/${cat.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    }))
-  } catch (error) {
-    console.error("Sitemap category fetch failed:", error)
-  }
-
-  try {
-    const blogs = await getLatestBlogs(500)
-
-    blogPages = blogs.map((blog) => ({
-      url: `${baseUrl}/blog/${blog.category_slug}/${blog.slug}`,
-      lastModified: blog.updated_at
-        ? new Date(blog.updated_at)
-        : new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    }))
-  } catch (error) {
-    console.error("Sitemap blog fetch failed:", error)
-  }
-
-  // -----------------------------
-  // Return All Routes
-  // -----------------------------
-  return [
-    ...staticPages,
-    ...blogHome,
-    ...categoryPages,
-    ...blogPages,
   ]
 }
