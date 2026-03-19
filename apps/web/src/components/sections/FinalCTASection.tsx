@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function FinalCTASection() {
   return (
-    <section className="section-padding relative overflow-hidden bg-neutral-950">
+    <section className="section-padding relative overflow-hidden bg-neutral-950 -mt-6 md:-mt-8">
 
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center">
@@ -37,7 +37,7 @@ export default function FinalCTASection() {
             </span>
           </div> 
 
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+          <h2 className="font-heading text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight tracking-tight mb-6">
             The Best Time to Start Your AI Career Was Yesterday.{' '}
             <span className="text-white/80">The Second Best Is Now.</span>
           </h2>
@@ -46,19 +46,18 @@ export default function FinalCTASection() {
             Seats are limited to 8 students per mentor per month. We keep cohorts small so every learner gets the attention they deserve.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row items-center justify-end gap-4 mt-8">
             <Link
               href="/ml-ai/apply"
-              className="btn-primary px-8 py-4 text-base border-white/20 text-white hover:bg-white/10"
+              className="btn-primary px-6 py-3 text-sm border-white/20 text-white hover:bg-white/10"
             >
-              Apply for ML & AI Course
-
+              Apply ML & AI
             </Link>
             <Link
               href="/prompt-engineering/apply"
-              className="btn-primary px-8 py-4 text-base border-white/20 text-white hover:bg-white/10"
+              className="btn-secondary px-6 py-3 text-sm border-white/20 bg-white/10 text-white hover:bg-white/20"
             >
-              Apply for Prompt Engineering
+              Prompt Engineering
             </Link>
           </div>
 

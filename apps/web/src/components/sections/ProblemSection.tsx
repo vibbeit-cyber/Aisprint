@@ -108,7 +108,7 @@ export default function ProblemSection() {
   ]
 
   return (
-    <section className="section-padding bg-white">
+    <section className="py-20 md:py-24 lg:py-32 bg-white">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="badge bg-gray-100 text-gray-900 mb-4">The Hard Truth</span>
@@ -144,7 +144,7 @@ export default function ProblemSection() {
         {/* Callout stat */}
         <div className="mt-12 max-w-2xl mx-auto">
           <div className="bg-black rounded-2xl p-8 text-center">
-            <p className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
+            <p className="text-lg md:text-xl lg:text-2xl font-heading font-bold text-white mb-2">
               Rs 2.1 Lakh
             </p>
             <p className="text-sm md:text-sm text-white font-body">

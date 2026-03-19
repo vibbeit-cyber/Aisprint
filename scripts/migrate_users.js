@@ -7,10 +7,11 @@ const { Client } = require('pg');
   const client = new Client({ connectionString: process.env.DATABASE_URL });
   await client.connect();
 
-  // Add dob, profile_image_url if they don't exist
+  // Add dob, profile_image_url, phone if they don't exist
   const checks = [
     { name: 'dob', definition: 'DATE' },
     { name: 'profile_image_url', definition: 'TEXT' },
+    { name: 'phone', definition: 'VARCHAR(20)' },
   ];
 
   for (let chk of checks) {

@@ -65,7 +65,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQSection() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-white -mt-6 md:-mt-8">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <span className="badge bg-gray-100 text-gray-900 mb-4">FAQs</span>
