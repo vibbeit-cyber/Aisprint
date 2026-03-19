@@ -5,6 +5,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useAuth } from '@/components/providers/AuthProvider'
 
+const navLinks = [
+  { label: 'Courses', href: '/courses' },
+  { label: 'Contact', href: '/contact' },
+]
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -34,8 +39,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <nav className="flex items-center justify-between h-16">
-
+        <nav className="flex items-center justify-between h-12 md:h-10 px-4 md:px-0">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
@@ -48,30 +52,33 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Right Side Menu */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-6 ml-auto mr-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-600 rounded-lg hover:bg-neutral-50 transition-all duration-150"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-            {/* Courses */}
-            <Link
-              href="/courses"
-              className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-600 rounded-md hover:bg-neutral-50 transition"
-            >
-              Courses
-            </Link>
-
-            {/* Auth Buttons */}
+          {/* CTA */}
+          <div className="hidden md:flex items-center gap-6">
             {!isLoading && !isAuthenticated ? (
               <>
                 <Link
                   href="/auth/signin"
-                  className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-600 rounded-md hover:bg-neutral-50 transition"
+                  className="btn-primary px-4 py-1 text-sm font-medium text-neutral-600 border border-neutral-200 rounded-lg bg-white/80 backdrop-blur-sm hover:bg-white hover:border-neutral-300 hover:text-brand-600 transition-all duration-150"
                 >
                   Sign In
                 </Link>
 
                 <Link
                   href="/auth/signup"
-                  className="btn-primary text-sm px-4 py-2"
+                  className="btn-primary text-sm px-4 py-1 bg-gradient-to-r from-purple-600 to-brand-600 hover:from-purple-700 hover:to-brand-700"
                 >
                   Sign Up
                 </Link>
@@ -100,7 +107,7 @@ export default function Navbar() {
 
                 <button
                   onClick={handleSignout}
-                  className="btn-primary text-sm px-4 py-2"
+                  className="text-sm px-4 py-2 bg-gradient-to-r from-purple-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   Sign Out
                 </button>
@@ -129,37 +136,66 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-neutral-200 pb-4">
-            <div className="flex flex-col gap-2 pt-3 px-4">
-
-              <Link
-                href="/courses"
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 rounded-md"
-              >
-                Courses
-              </Link>
-
-              {!isLoading && !isAuthenticated ? (
-                <>
-                  <Link
-                    href="/auth/signin"
-                    onClick={() => setIsOpen(false)}
-                    className="px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 rounded-md"
-                  >
-                    Sign In
-                  </Link>
-
-                  <Link
-                    href="/auth/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="btn-primary w-full text-sm py-3"
-                  >
-                    Sign Up
-                  </Link>
-                </>
-              ) : null}
-
+          <div className="md:hidden bg-white border-t border-neutral-200 pb-6">
+            <div className="flex flex-col gap-2 pt-4 px-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="px-6 py-4 text-base font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="mt-4 px-4 border-t border-neutral-200 pt-4">
+                {!isLoading && !isAuthenticated ? (
+                  <>
+                <Link
+                  href="/auth/signin"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-3 text-sm font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all text-center mb-2"
+                >
+                  Sign In
+                </Link>
+                    <Link
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                      className="btn-primary w-full justify-center text-base py-4"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                ) : !isLoading ? (
+                  <>
+                    {user && (
+                      <div className="flex items-center gap-3 mb-6 px-6">
+                        <img
+                          src={user.profile_image_url || '/avatar-placeholder.png'}
+                          alt="avatar"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <span className="text-base font-medium text-neutral-700">
+                          {user.username}
+                        </span>
+                      </div>
+                    )}
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-6 py-4 text-base font-medium text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg transition-all text-center mb-3"
+                    >
+                      Dashboard
+                    </Link>
+                <button
+                  onClick={handleSignout}
+                  className="btn-primary w-full text-sm px-4 py-2 bg-gradient-to-r from-purple-600 to-brand-600 hover:from-purple-700 hover:to-brand-700"
+                >
+                  Sign Out
+                </button>
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
         )}
