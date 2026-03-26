@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { query } from '@/lib/db'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
+    // ✅ Supabase client
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY! // server-side only
+    )
+
+    // ✅ Get user from cookie
+    const cookieStore = cookies()
     const userId = cookieStore.get('user_id')?.value
 
     if (!userId) {
@@ -14,27 +21,35 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get user courses
-    const courses = await query(
-      `SELECT id, user_id, course_type, status, experience, enrollment_date 
-       FROM user_courses 
-       WHERE user_id = $1 
-       ORDER BY enrollment_date DESC`,
-      [userId]
-    )
+    // ✅ Fetch from Supabase
+    const { data, error } = await supabase
+      .from('user_courses')
+      .select('*')
+      .eq('user_id', userId)
 
+    if (error) {
+      throw error
+    }
+
+    // ✅ Format response
     return NextResponse.json(
       {
-        success: true,
-        courses,
+        courses: (data || []).map((course: any) => ({
+          id: course.id,
+          title: course.title,
+          progress: course.progress || 0,
+          completed: course.completed || false,
+          certificate: course.certificate || false,
+        })),
       },
       { status: 200 }
     )
   } catch (error) {
     console.error('Get user courses error:', error)
-    return NextResponse.json(
-      { success: false, message: 'An error occurred' },
-      { status: 500 }
-    )
+
+return NextResponse.json(
+  { success: false, error: String(error) },
+  { status: 500 }
+)
   }
 }

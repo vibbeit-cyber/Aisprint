@@ -7,194 +7,124 @@ import Link from 'next/link'
 
 export default function SignInForm() {
   const router = useRouter()
-  const { signin } = useAuth()
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  })
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const { signin, signinWithGoogle } = useAuth()
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {}
-
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Valid email address is required'
-    }
-
-    if (!form.password) {
-      newErrors.password = 'Password is required'
-    }
-
-    return newErrors
-  }
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setServerError('')
-
-    const validationErrors = validate()
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
-    }
-
-    setErrors({})
-    setIsSubmitting(true)
+    setError('')
+    setLoading(true)
 
     try {
-      await signin(form.email, form.password)
+      await signin(email, password)
       router.push('/dashboard')
-    } catch (error) {
-      setServerError(
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong. Please try again.'
-      )
+    } catch (err: any) {
+      setError(err.message || 'Invalid credentials')
     } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }))
+      setLoading(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-6">
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="label">
-          Email Address <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="you@example.com"
-          value={form.email}
-          onChange={handleChange}
-          className={`input-field ${errors.email ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        {errors.email && (
-          <p className="mt-1.5 text-xs text-red-500 font-body">{errors.email}</p>
-        )}
-      </div>
+    <div className="space-y-5">
 
-      {/* Password */}
-      <div>
-        <div className="flex items-center justify-between">
-          <label htmlFor="password" className="label">
-            Password <span className="text-red-500">*</span>
-          </label>
-          <Link
-            href="#"
-            className="text-xs text-brand-600 hover:text-brand-700 font-medium"
-          >
-            Forgot password?
-          </Link>
-        </div>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="••••••••"
-          value={form.password}
-          onChange={handleChange}
-          className={`input-field ${errors.password ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        {errors.password && (
-          <p className="mt-1.5 text-xs text-red-500 font-body">
-            {errors.password}
-          </p>
-        )}
-      </div>
-
-      {/* Server error */}
-      {serverError && (
-        <div className="p-4 rounded-xl bg-red-50 border border-red-200">
-          <p className="text-sm text-red-600 font-body">{serverError}</p>
-        </div>
-      )}
-
-      {/* Submit */}
+      {/* ✅ Google Button (FIXED ICON) */}
       <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full btn-primary justify-center py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        onClick={signinWithGoogle}
+        className="w-full h-12 rounded-xl border border-gray-200 bg-white text-sm font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition"
       >
-        {isSubmitting ? (
-          <>
-            <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              ></path>
-            </svg>
-            Signing In...
-          </>
-        ) : (
-          <>
-            Sign In
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </>
-        )}
+        {/* Google SVG (NO IMAGE ERROR) */}
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.2 0 6.1 1.2 8.4 3.1l6.3-6.3C34.6 2.6 29.6 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.4 5.7C12.1 13.1 17.6 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-2.7-.4-3.9H24v7.4h12.8c-.3 2-1.8 5-5.2 7l8 6.2c4.6-4.3 7-10.6 7-16.7z"/>
+          <path fill="#FBBC05" d="M10.1 28.9c-1-2-1.6-4.2-1.6-6.4s.6-4.4 1.6-6.4l-7.4-5.7C1 13.7 0 16.8 0 20s1 6.3 2.7 9.6l7.4-5.7z"/>
+          <path fill="#34A853" d="M24 48c6.6 0 12.2-2.2 16.2-6l-8-6.2c-2.2 1.5-5 2.5-8.2 2.5-6.4 0-11.9-3.6-13.9-8.8l-7.4 5.7C6.6 42.6 14.6 48 24 48z"/>
+        </svg>
+
+        Continue with Google
       </button>
 
-      {/* Sign up link */}
-      <p className="text-sm text-center text-gray-600 font-body">
-        Don't have an account?{' '}
-        <Link
-          href="/auth/signup"
-          className="text-brand-600 hover:text-brand-700 font-semibold"
-        >
-          Sign up here
-        </Link>
-      </p>
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-gray-200" />
+        <span className="text-xs text-gray-400">or</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
 
-      <p className="text-xs text-center text-gray-400 font-body">
-        By signing in, you agree to our{' '}
-        <a
-          href="/policies/privacy"
-          className="underline hover:text-gray-600"
+      {/* Error */}
+      {error && <p className="text-sm text-red-500">{error}</p>}
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+
+        {/* Email */}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full h-12 px-4 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+        />
+
+        {/* Password */}
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full h-12 px-4 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+          />
+
+          {/* 👁 CLEAN ICON (SVG, NOT EMOJI) */}
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          >
+            {showPassword ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M3 3l18 18" />
+                <path d="M10.6 10.6A3 3 0 0013.4 13.4" />
+                <path d="M9.88 4.24A10.94 10.94 0 0112 4c5 0 9.27 3.11 11 8-1.04 2.94-3.18 5.26-5.88 6.5" />
+                <path d="M6.1 6.1C3.93 7.57 2.26 9.64 1 12c1.73 4.89 6 8 11 8 1.61 0 3.14-.32 4.54-.9" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Forgot */}
+        <Link
+          href="/auth/forgot-password"
+          className="text-sm text-gray-500 hover:text-gray-700"
         >
-          Privacy Policy
-        </a>
-        {' '}and{' '}
-        <a
-          href="/policies/terms"
-          className="underline hover:text-gray-600"
-        >
-          Terms & Conditions
-        </a>
-        .
-      </p>
-    </form>
+          Forgot password
+        </Link>
+
+        {/* Submit */}
+<button
+  type="submit"
+  disabled={loading}
+  className="w-full h-12 rounded-xl bg-brand-600 text-white font-medium text-sm 
+             hover:bg-brand-700 active:scale-[0.99] 
+             transition-all duration-200 
+             disabled:opacity-60 disabled:cursor-not-allowed
+             focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+>
+  {loading ? 'Signing in...' : 'Continue'}
+</button>
+
+      </form>
+    </div>
   )
 }

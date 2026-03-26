@@ -22,6 +22,8 @@ interface AuthContextType {
   signup: (username: string, email: string, password: string) => Promise<void>
   signout: () => Promise<void>
   refreshUser: () => Promise<void>
+  signinWithGoogle: () => void
+  signinWithApple: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -30,17 +32,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Refresh user on mount
+  // ✅ Run only once safely
   useEffect(() => {
-    refreshUser()
+    let isMounted = true
+
+    const init = async () => {
+      await refreshUser()
+      if (isMounted) setIsLoading(false)
+    }
+
+    init()
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   const refreshUser = async () => {
     try {
       const res = await fetch('/api/auth/me')
+
+      if (!res.ok) {
+        setUser(null)
+        return
+      }
+
       const data = await res.json()
 
-      if (data.success) {
+      if (data?.success) {
         setUser(data.user)
       } else {
         setUser(null)
@@ -48,55 +67,75 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error('Failed to refresh user:', error)
       setUser(null)
-    } finally {
-      setIsLoading(false)
     }
   }
 
   const signin = async (email: string, password: string) => {
-    const res = await fetch('/api/auth/signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
+    try {
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (!data.success) {
-      throw new Error(data.message || 'Sign in failed')
+      if (!data?.success) {
+        throw new Error(data?.message || 'Sign in failed')
+      }
+
+      setUser(data.user)
+    } catch (error: any) {
+      throw new Error(error.message || 'Sign in failed')
     }
-
-    // include optional profile fields if returned
-    setUser(data.user)
   }
 
   const signup = async (username: string, email: string, password: string) => {
-    const res = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password }),
-    })
-    const data = await res.json()
+    try {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      })
 
-    if (!data.success) {
-      throw new Error(data.message || 'Sign up failed')
+      const data = await res.json()
+
+      if (!data?.success) {
+        throw new Error(data?.message || 'Sign up failed')
+      }
+
+      setUser(data.user)
+    } catch (error: any) {
+      throw new Error(error.message || 'Sign up failed')
     }
-
-    setUser(data.user)
   }
 
   const signout = async () => {
-    const res = await fetch('/api/auth/signout', {
-      method: 'POST',
-    })
+    try {
+      const res = await fetch('/api/auth/signout', {
+        method: 'POST',
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (!data.success) {
-      throw new Error(data.message || 'Sign out failed')
+      if (!data?.success) {
+        throw new Error(data?.message || 'Sign out failed')
+      }
+
+      setUser(null)
+    } catch (error: any) {
+      throw new Error(error.message || 'Sign out failed')
     }
+  }
 
-    setUser(null)
+  // ✅ Google OAuth
+  const signinWithGoogle = () => {
+    window.location.href = '/api/auth/google'
+  }
+
+  // ✅ Apple OAuth
+  const signinWithApple = () => {
+    window.location.href = '/api/auth/apple'
   }
 
   return (
@@ -109,6 +148,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signup,
         signout,
         refreshUser,
+        signinWithGoogle,
+        signinWithApple,
       }}
     >
       {children}
@@ -118,8 +159,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext)
+
   if (!context) {
     throw new Error('useAuth must be used within AuthProvider')
   }
+
   return context
 }

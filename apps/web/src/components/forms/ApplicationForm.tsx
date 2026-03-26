@@ -2,244 +2,95 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/providers/AuthProvider'
 
-interface ApplicationFormProps {
-  courseType: 'ml-ai' | 'prompt-engineering'
-  courseTitle: string
-  coursePrice: string
-}
-
-type ExperienceLevel = 'no-experience' | 'beginner' | 'intermediate' | 'advanced'
-
-const experienceLevels: { value: ExperienceLevel; label: string; desc: string }[] = [
-  { value: 'no-experience', label: 'No Experience', desc: 'Never coded or worked with AI before' },
-  { value: 'beginner', label: 'Beginner', desc: 'Some Python or basic data skills' },
-  { value: 'intermediate', label: 'Intermediate', desc: 'Used ML libraries or AI APIs before' },
-  { value: 'advanced', label: 'Advanced', desc: 'Built ML models or AI applications' },
-]
-
-export default function ApplicationForm({ courseType, courseTitle, coursePrice }: ApplicationFormProps) {
+export default function SignUpForm() {
   const router = useRouter()
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    experience: '' as ExperienceLevel | '',
-    career_goal: '',
-  })
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [serverError, setServerError] = useState('')
+  const { signinWithGoogle } = useAuth()
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {}
-    if (!form.name.trim() || form.name.trim().length < 2) {
-      newErrors.name = 'Full name is required (at least 2 characters)'
-    }
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'A valid email address is required'
-    }
-    if (!form.phone.trim() || !/^[6-9]\d{9}$/.test(form.phone.replace(/\s/g, '')) && !/^\+[1-9]\d{7,14}$/.test(form.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Enter a valid 10-digit mobile number (e.g. 9876543210)'
-    }
-    if (!form.experience) {
-      newErrors.experience = 'Please select your experience level'
-    }
-    if (!form.career_goal.trim() || form.career_goal.trim().length < 10) {
-      newErrors.career_goal = 'Please describe your career goal (at least 10 characters)'
-    }
-    return newErrors
-  }
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleContinue = async (e: React.FormEvent) => {
     e.preventDefault()
-    setServerError('')
-    const validationErrors = validate()
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
+    setError('')
+
+    if (!email.trim()) {
+      setError('Email is required')
       return
     }
-    setErrors({})
-    setIsSubmitting(true)
+
+    setLoading(true)
 
     try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, course_type: courseType }),
-      })
-
-      const data = await res.json()
-
-      if (data.success) {
-        router.push('/thank-you')
-      } else {
-        setServerError(data.message || 'Something went wrong. Please try again.')
-      }
+      // 👉 You can store email in query or state
+      router.push(`/auth/signup/password?email=${encodeURIComponent(email)}`)
     } catch {
-      setServerError('Network error. Please check your connection and try again.')
+      setError('Something went wrong')
     } finally {
-      setIsSubmitting(false)
+      setLoading(false)
     }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-6">
-      {/* Hidden course type */}
-      <input type="hidden" name="course_type" value={courseType} />
+    <div className="space-y-5">
 
-      {/* Full Name */}
-      <div>
-        <label htmlFor="name" className="label">
-          Full Name <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          autoComplete="name"
-          placeholder="Rahul Sharma"
-          value={form.name}
-          onChange={handleChange}
-          className={`input-field ${errors.name ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        {errors.name && <p className="mt-1.5 text-xs text-red-500 font-body">{errors.name}</p>}
-      </div>
-
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="label">
-          Email Address <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          placeholder="rahul@example.com"
-          value={form.email}
-          onChange={handleChange}
-          className={`input-field ${errors.email ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        {errors.email && <p className="mt-1.5 text-xs text-red-500 font-body">{errors.email}</p>}
-      </div>
-
-      {/* Phone */}
-      <div>
-        <label htmlFor="phone" className="label">
-          Mobile Number <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-          placeholder="9876543210"
-          value={form.phone}
-          onChange={handleChange}
-          className={`input-field ${errors.phone ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        <p className="mt-1 text-xs text-gray-400 font-body">10-digit Indian mobile or international with country code</p>
-        {errors.phone && <p className="mt-1 text-xs text-red-500 font-body">{errors.phone}</p>}
-      </div>
-
-      {/* Experience Level */}
-      <div>
-        <label className="label">
-          Experience Level <span className="text-red-500">*</span>
-        </label>
-        <div className="grid grid-cols-2 gap-3">
-          {experienceLevels.map((level) => (
-            <label
-              key={level.value}
-              className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                form.experience === level.value
-                  ? 'border-brand-500 bg-brand-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
-              }`}
-            >
-              <input
-                type="radio"
-                name="experience"
-                value={level.value}
-                checked={form.experience === level.value}
-                onChange={() => {
-                  setForm((prev) => ({ ...prev, experience: level.value }))
-                  if (errors.experience) setErrors((prev) => ({ ...prev, experience: '' }))
-                }}
-                className="sr-only"
-              />
-              <span className={`text-sm font-semibold font-body ${form.experience === level.value ? 'text-brand-700' : 'text-gray-800'}`}>
-                {level.label}
-              </span>
-              <span className="text-xs text-gray-500 font-body mt-0.5">{level.desc}</span>
-            </label>
-          ))}
-        </div>
-        {errors.experience && <p className="mt-1.5 text-xs text-red-500 font-body">{errors.experience}</p>}
-      </div>
-
-      {/* Career Goal */}
-      <div>
-        <label htmlFor="career_goal" className="label">
-          What is your career goal? <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          id="career_goal"
-          name="career_goal"
-          rows={4}
-          placeholder="E.g. I want to transition from software engineering to a Machine Learning role at a product startup within 6 months..."
-          value={form.career_goal}
-          onChange={handleChange}
-          className={`input-field resize-none ${errors.career_goal ? 'border-red-400 focus:ring-red-400' : ''}`}
-        />
-        {errors.career_goal && <p className="mt-1.5 text-xs text-red-500 font-body">{errors.career_goal}</p>}
-      </div>
-
-      {/* Server error */}
-      {serverError && (
-        <div className="p-4 rounded-xl bg-red-50 border border-red-200">
-          <p className="text-sm text-red-600 font-body">{serverError}</p>
-        </div>
-      )}
-
-      {/* Submit */}
+      {/* ✅ Google Button */}
       <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full btn-primary justify-center py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        onClick={signinWithGoogle}
+        className="w-full h-12 rounded-xl border border-gray-200 bg-white text-sm font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition"
       >
-        {isSubmitting ? (
-          <>
-            <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-            </svg>
-            Submitting Application...
-          </>
-        ) : (
-          <>
-            Submit Application for {courseTitle}
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </>
-        )}
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.2 0 6.1 1.2 8.4 3.1l6.3-6.3C34.6 2.6 29.6 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.4 5.7C12.1 13.1 17.6 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-2.7-.4-3.9H24v7.4h12.8c-.3 2-1.8 5-5.2 7l8 6.2c4.6-4.3 7-10.6 7-16.7z"/>
+          <path fill="#FBBC05" d="M10.1 28.9c-1-2-1.6-4.2-1.6-6.4s.6-4.4 1.6-6.4l-7.4-5.7C1 13.7 0 16.8 0 20s1 6.3 2.7 9.6l7.4-5.7z"/>
+          <path fill="#34A853" d="M24 48c6.6 0 12.2-2.2 16.2-6l-8-6.2c-2.2 1.5-5 2.5-8.2 2.5-6.4 0-11.9-3.6-13.9-8.8l-7.4 5.7C6.6 42.6 14.6 48 24 48z"/>
+        </svg>
+
+        Continue with Google
       </button>
 
-      <p className="text-xs text-center text-gray-400 font-body">
-        By submitting, you agree to our{' '}
-        <a href="/policies/privacy" className="underline hover:text-gray-600">Privacy Policy</a>
-        {' '}and{' '}
-        <a href="/policies/terms" className="underline hover:text-gray-600">Terms & Conditions</a>.
-        Investment: {coursePrice}.
-      </p>
-    </form>
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-gray-200" />
+        <span className="text-xs text-gray-400">or</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+
+      {/* Error */}
+      {error && <p className="text-sm text-red-500">{error}</p>}
+
+      {/* Email Form */}
+      <form onSubmit={handleContinue} className="space-y-4">
+
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            placeholder="jane@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full h-12 px-4 rounded-xl border border-gray-200 text-sm 
+                       focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+          />
+        </div>
+
+        {/* Continue Button (no gradient — elegant) */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full h-12 rounded-xl bg-brand-600 text-white font-medium text-sm 
+                     hover:bg-brand-700 transition-all 
+                     disabled:opacity-60"
+        >
+          {loading ? 'Loading...' : 'Continue'}
+        </button>
+
+      </form>
+    </div>
   )
 }

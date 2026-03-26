@@ -78,7 +78,7 @@ const courseDetails: Record<
 export default function CourseDetailPage({
   params,
 }: {
-  params: { courseType: string }
+  params: { courseSlug: string }
 }) {
   const { isAuthenticated, isLoading, user } = useAuth()
   const router = useRouter()
@@ -104,7 +104,7 @@ export default function CourseDetailPage({
 
       if (data.success) {
         const userCourse = data.courses.find(
-          (c: UserCourse) => c.course_type === params.courseType
+        (c: UserCourse) => c.course_type === params.courseSlug
         )
         setCourse(userCourse || null)
       }
@@ -121,7 +121,7 @@ export default function CourseDetailPage({
       const res = await fetch('/api/user/wishlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ course_type: params.courseType }),
+  body: JSON.stringify({ course_type: params.courseSlug }),
       })
 
       if (res.ok) {
@@ -146,7 +146,7 @@ export default function CourseDetailPage({
     return null
   }
 
-  const details = courseDetails[params.courseType]
+  const details = courseDetails[params.courseSlug]
 
   if (!details) {
     return (
@@ -194,7 +194,7 @@ export default function CourseDetailPage({
               {!course ? (
                 <>
                   <Link
-                    href={`/dashboard/course/${params.courseType}/payment`}
+                    href={`/dashboard/course/${params.courseSlug}/payment`}
                     className="btn-primary px-8 py-4 text-lg"
                   >
                     Enroll Now
@@ -385,7 +385,7 @@ export default function CourseDetailPage({
               Join hundreds of students already learning with AIsprint
             </p>
             <Link
-              href={`/dashboard/course/${params.courseType}/payment`}
+              href={`/dashboard/course/${params.courseSlug}/payment`}
               className="btn-primary px-8 py-4 text-lg inline-flex"
             >
               Enroll Now for {details.price}

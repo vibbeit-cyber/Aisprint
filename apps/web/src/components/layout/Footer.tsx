@@ -13,7 +13,7 @@ const footerLinks = {
   ],
   Legal: [
     { label: 'Privacy Policy', href: '/policies/privacy' },
-    { label: 'Terms & Conditions', href: '/policies/terms' },
+    { label: 'Terms & Conditions', href: '/policies/terms' }, 
   ],
   Compliances: [
     { label: 'Cookie Policy', href: '/policies/cookie' },
@@ -107,7 +107,6 @@ export default function Footer() {
           />
         </Link>
         <p className="text-sm leading-relaxed max-w-xs text-center">
-          India&apos;s premier 1:1 live AI education platform. Partnered with <span className="inline-flex items-center gap-1"><span className="text-brand-400"><svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 16.5L10.5 11L14.5 15L19 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M19 7V10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Startup India</span>.
         </p>
       </div>
 

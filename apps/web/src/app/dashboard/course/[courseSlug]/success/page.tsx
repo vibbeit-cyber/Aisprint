@@ -16,10 +16,10 @@ const courseDetails: Record<string, { label: string }> = {
 export default function PaymentSuccessPage({
   params,
 }: {
-  params: { courseType: string }
+  params: { courseSlug: string }
 }) {
   const router = useRouter()
-  const details = courseDetails[params.courseType]
+  const details = courseDetails[params.courseSlug]
 
   useEffect(() => {
     // Redirect to dashboard after 5 seconds

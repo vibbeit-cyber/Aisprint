@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client'
 
 import { useState } from 'react'
@@ -111,3 +112,10 @@ export default function DashboardPage() {
     </>
   )
 }
+=======
+import Overview from '@/components/dashboard/Overview'
+
+export default function DashboardPage() {
+  return <Overview />
+}
+>>>>>>> 5e572c643d79bced6a11623b9a5869b7c25d704f

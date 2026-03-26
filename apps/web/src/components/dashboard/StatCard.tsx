@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client'
 
 import { ReactNode } from 'react'
@@ -29,3 +30,13 @@ export default function StatCard({ title, value, change, icon, gradient = 'from-
   )
 }
 
+=======
+export default function StatCard({ title, value }: any) {
+  return (
+    <div className="bg-white border rounded-xl p-4 hover:shadow-sm transition">
+      <p className="text-xs text-gray-400">{title}</p>
+      <h2 className="text-xl font-semibold mt-1">{value}</h2>
+    </div>
+  )
+}
+>>>>>>> 5e572c643d79bced6a11623b9a5869b7c25d704f

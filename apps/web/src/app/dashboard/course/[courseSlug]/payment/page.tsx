@@ -36,7 +36,7 @@ interface RazorpayResponse {
 export default function PaymentPage({
   params,
 }: {
-  params: { courseType: string }
+  params: { courseSlug: string }
 }) {
   const { isAuthenticated, isLoading, user } = useAuth()
   const router = useRouter()
@@ -56,7 +56,7 @@ export default function PaymentPage({
     return null
   }
 
-  const details = courseDetails[params.courseType]
+  const details = courseDetails[params.courseSlug]
 
   if (!details) {
     return (
@@ -83,7 +83,7 @@ export default function PaymentPage({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          course_type: params.courseType,
+          course_type: params.courseSlug,
           amount: details.priceAmount,
         }),
       })
@@ -117,14 +117,14 @@ export default function PaymentPage({
                   razorpay_order_id: response.razorpay_order_id,
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
-                  course_type: params.courseType,
+                  course_type: params.courseSlug,
                 }),
               })
 
               const verifyData = await verifyRes.json()
 
               if (verifyData.success) {
-                router.push(`/dashboard/course/${params.courseType}/success`)
+                router.push(`/dashboard/course/${params.courseSlug}/success`)
               } else {
                 setError('Payment verification failed')
               }
@@ -286,10 +286,10 @@ export default function PaymentPage({
                   </>
                 )}
               </button>
-              <Link
-                href={`/dashboard/course/${params.courseType}`}
-                className="px-6 py-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-              >
+            <Link
+              href={`/dashboard/course/${params.courseSlug}`}
+              className="px-6 py-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            >
                 Back
               </Link>
             </div>
