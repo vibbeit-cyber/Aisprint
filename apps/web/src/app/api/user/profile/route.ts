@@ -1,11 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { cookies } from 'next/headers'
-import { hashPassword, verifyPassword } from '@/lib/auth'
 
+/* ───────────── GET USER ───────────── */
+export async function GET() {
+  try {
+    const cookieStore = cookies()
+    const userId = cookieStore.get('user_id')?.value
+
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, message: 'Not authenticated' },
+        { status: 401 }
+      )
+    }
+
+    const result = await query(
+      `SELECT id, name, email, username, country, bio, phone, dob, profile_image_url
+       FROM public.users
+       WHERE id = $1`,
+      [userId]
+    )
+
+    if (result.length === 0) {
+      return NextResponse.json(
+        { success: false, message: 'User not found' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(
+      { success: true, user: result[0] },
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error('GET profile error:', error)
+    return NextResponse.json(
+      { success: false, message: 'Server error' },
+      { status: 500 }
+    )
+  }
+}
+
+/* ───────────── UPDATE USER ───────────── */
 export async function PUT(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
+    const cookieStore = cookies()
     const userId = cookieStore.get('user_id')?.value
 
     if (!userId) {
@@ -41,24 +81,14 @@ export async function PUT(request: NextRequest) {
       ]
     )
 
-    if (result.length === 0) {
-      return NextResponse.json(
-        { success: false, message: 'User not found' },
-        { status: 404 }
-      )
-    }
-
     return NextResponse.json(
-      {
-        success: true,
-        user: result[0],
-      },
+      { success: true, user: result[0] },
       { status: 200 }
     )
   } catch (error) {
-    console.error('Update profile error:', error)
+    console.error('PUT profile error:', error)
     return NextResponse.json(
-      { success: false, message: 'An error occurred' },
+      { success: false, message: 'Server error' },
       { status: 500 }
     )
   }

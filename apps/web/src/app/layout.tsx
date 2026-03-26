@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
-import ChatBox from '@/components/ChatBox'
+
+import LayoutWrapper from '@/components/layout/LayoutWrapper' // ✅ added
 import { AuthProvider } from '@/components/providers/AuthProvider'
 
 import GoogleAnalytics from "@/components/analytics/googleanalytics"
@@ -123,10 +122,8 @@ export default function RootLayout({
         <GoogleAnalytics />
 
         <AuthProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ChatBox />
+          {/* ✅ wrapper controls navbar/footer visibility */}
+          <LayoutWrapper>{children}</LayoutWrapper>
         </AuthProvider>
       </body>
     </html>

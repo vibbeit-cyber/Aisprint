@@ -4,22 +4,14 @@ import {
   hashPassword,
   isValidEmail,
   isValidPassword,
-  isValidUsername,
 } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { username, email, password } = body
+    let { username, email, password } = body
 
-    // Validate inputs
-    if (!isValidUsername(username)) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid username. Use 3-30 letters, numbers, underscores only' },
-        { status: 400 }
-      )
-    }
-
+    // ✅ Validate email
     if (!isValidEmail(email)) {
       return NextResponse.json(
         { success: false, message: 'Please enter a valid email address' },
@@ -27,6 +19,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // ✅ Validate password
     if (!isValidPassword(password)) {
       return NextResponse.json(
         {
@@ -38,19 +31,38 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check username uniqueness
-    const existingUsername = await query(
-      'SELECT id FROM public.users WHERE username = $1',
-      [username]
-    )
-    if (existingUsername.length > 0) {
+    // ✅ Auto-generate username (UXcel style)
+    if (!username) {
+      const base = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
+      const random = Math.floor(1000 + Math.random() * 9000)
+      username = `${base}${random}`
+    }
+
+    // ✅ Ensure username is unique
+    let finalUsername = username
+    let attempt = 0
+
+    while (attempt < 5) {
+      const existing = await query(
+        'SELECT id FROM public.users WHERE username = $1',
+        [finalUsername]
+      )
+
+      if (existing.length === 0) break
+
+      finalUsername = `${username}${Math.floor(Math.random() * 1000)}`
+      attempt++
+    }
+
+    // ❌ If still duplicate after attempts
+    if (attempt === 5) {
       return NextResponse.json(
-        { success: false, message: 'Username already taken' },
-        { status: 400 }
+        { success: false, message: 'Failed to generate unique username' },
+        { status: 500 }
       )
     }
 
-    // Check email uniqueness
+    // ✅ Check email uniqueness
     const existingEmail = await query(
       'SELECT id FROM public.users WHERE email = $1',
       [email]
@@ -63,17 +75,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Hash password
+    // ✅ Hash password
     const passwordHash = await hashPassword(password)
 
-    // Create user record - use email as name placeholder for now
+    // ✅ Insert user
     const userResult = await query(
-      `INSERT INTO users (name, username, email, password_hash)
+      `INSERT INTO public.users (name, username, email, password_hash)
        VALUES ($1, $2, $3, $4)
        RETURNING id, email, username, name`,
       [
-        email.split('@')[0], // name from email prefix
-        username,
+        email.split('@')[0], // name
+        finalUsername,
         email,
         passwordHash,
       ]
@@ -88,16 +100,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-
-    // send confirmation email to user
+    // ✅ Optional: send email (safe fail)
     try {
       const { sendSignupConfirmation } = await import('@/lib/email.service')
-      await sendSignupConfirmation({ name: user.name as string, email: user.email as string })
+      await sendSignupConfirmation({
+        name: user.name as string,
+        email: user.email as string,
+      })
     } catch (err) {
-      console.error('Failed to send sign-up email', err)
+      console.error('Email send failed (non-blocking):', err)
     }
 
-    // Return success with user info (don't return password)
+    // ✅ SUCCESS RESPONSE
     return NextResponse.json(
       {
         success: true,
@@ -113,6 +127,7 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     console.error('Sign up error:', error)
+
     return NextResponse.json(
       { success: false, message: 'An error occurred during sign up' },
       { status: 500 }
