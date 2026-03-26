@@ -10,6 +10,7 @@ import CoursesTab from '@/components/dashboard/CoursesTab'
 import SettingsTab from '@/components/dashboard/SettingsTab'
 import CertificatesTab from '@/components/dashboard/CertificatesTab'
 import WishlistTab from '@/components/dashboard/WishlistTab'
+import GlassCard from '@/components/dashboard/GlassCard'
 
 type Tab = 'general' | 'courses' | 'certificates' | 'wishlist' | 'settings'
 
@@ -43,58 +44,70 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <>
+      {/* Hero Header */}
+      <header className="gradient-hero sticky top-0 z-50 shadow-2xl">
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-4">
-              <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+          <div className="flex items-center justify-between py-8">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
+                Welcome back {user?.username || user?.name || 'User'}! 👋
+              </h1>
+              <p className="text-xl text-gray-600 max-w-md">
+                Continue your AI learning journey with personalized insights
+              </p>
             </div>
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard" className="flex items-center gap-3 -ml-2">
-                <div className="text-right">
-                  <p className="text-sm font-medium text-gray-900 truncate max-w-32">{user?.username || user?.name}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
+            <div className="flex items-center gap-4">
+              <div className="glass-button flex items-center gap-3 p-3 -ml-2 hover:shadow-xl">
+                <div className="relative">
+                  <img
+                    src={user?.profile_image_url || '/logo3.png'}
+                    alt="Profile"
+                    className="w-12 h-12 rounded-2xl object-cover border-4 border-white/50 shadow-lg ring-2 ring-brand-200/50"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 border-4 border-white rounded-full ring-2 ring-green-400/30"></div>
                 </div>
-                <img
-                  src={user?.profile_image_url || '/avatar-placeholder.png'}
-                  alt="Profile"
-                  className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
-                />
-              </Link>
+                <div className="text-left hidden md:block">
+                  <p className="text-sm font-semibold text-gray-900 capitalize">{user?.username || user?.name}</p>
+                  <p className="text-xs text-gray-500 truncate max-w-[200px]">{user?.email}</p>
+                </div>
+              </div>
               <button
                 onClick={() => router.push('/')}
-                className="ml-auto btn-primary text-sm px-4 py-2 bg-gradient-to-r from-purple-600 to-brand-600 hover:from-purple-700 hover:to-brand-700"
+                className="btn-primary text-sm px-6 py-3 bg-gradient-to-r from-brand-600 via-brand-500 to-purple-600 hover:from-brand-700 hover:via-brand-600 hover:to-purple-700 shadow-2xl hover:shadow-3xl"
               >
-                Home
+                ← Home
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container-custom py-8">
-        <div className="flex gap-8">
-          {/* Sidebar */}
-          <DashboardSidebar
-            tabs={sidebarTabs}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
+      <div className="gradient-hero min-h-screen">
+        <div className="container-custom py-12 lg:py-20">
+          <div className="flex gap-10 lg:gap-12">
+            {/* Sidebar */}
+            <DashboardSidebar
+              tabs={sidebarTabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
 
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            <div className="bg-white rounded-lg border border-gray-200">
-              {activeTab === 'general' && <GeneralTab />}
-              {activeTab === 'courses' && <CoursesTab />}
-              {activeTab === 'certificates' && <CertificatesTab />}
-              {activeTab === 'wishlist' && <WishlistTab />}
-              {activeTab === 'settings' && <SettingsTab />}
+            {/* Main Content */}
+            <div className="flex-1 min-w-0">
+              <GlassCard className="overflow-hidden">
+                <div className="p-2 md:p-8">
+                  {activeTab === 'general' && <GeneralTab />}
+                  {activeTab === 'courses' && <CoursesTab />}
+                  {activeTab === 'certificates' && <CertificatesTab />}
+                  {activeTab === 'wishlist' && <WishlistTab />}
+                  {activeTab === 'settings' && <SettingsTab />}
+                </div>
+              </GlassCard>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

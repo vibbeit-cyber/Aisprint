@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import CoursesSubTab from './CoursesSubTab.tsx'
-import WishlistSubTab from './WishlistSubTab.tsx'
-import CertificatesSubTab from './CertificatesSubTab.tsx'
+import CoursesSubTab from './CoursesSubTab'
+import WishlistSubTab from './WishlistSubTab'
+import CertificatesSubTab from './CertificatesSubTab'
 
 type CourseSubTab = 'courses' | 'wishlist' | 'certificates'
 
@@ -26,8 +26,7 @@ export default function CoursesTab() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Courses</h2>
-        
-        {/* Sub-tabs for courses section */}
+
         <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-gray-200">
           {courseSubTabs.map((tab) => (
             <button
@@ -46,7 +45,6 @@ export default function CoursesTab() {
         </div>
       </div>
 
-      {/* Sub-tab content */}
       {activeSubTab === 'courses' && <CoursesSubTab />}
       {activeSubTab === 'wishlist' && <WishlistSubTab />}
       {activeSubTab === 'certificates' && <CertificatesSubTab />}

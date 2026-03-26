@@ -1,27 +1,64 @@
-# Terminal Error Fixes - Progress Tracker
+# Dashboard UI/UX Improvement TODO (uxcel.com style)
 
-## ✅ Phase 1: Critical Fixes (In Progress)
+Status: Approved ✅
 
-### 1. [ ] Fix GeneralTab.tsx syntax error
-   - Remove stray JSX code after line 158 (lines 159-218)
-   - Restore original dashboard stats/courses display
-   
-### 2. [ ] Safe SQL update for /api/auth/me 
-   - Modify SELECT query to handle missing phone/dob columns
-   - Use COALESCE(phone, null) or remove optional fields
-   
-### 3. [ ] Database migration
-   - Create script: ALTER TABLE users ADD COLUMN phone VARCHAR(20), dob DATE  
-   - Run migration
-   
-### 4. [ ] Next.js config deprecation
-   - Update next.config.js: images.domains → images.remotePatterns
-   
-## 🔄 Phase 2: Testing & Cleanup
-### 5. [ ] Clean Next.js cache
-### 6. [ ] Test /dashboard and /api/auth/me endpoints
-### 7. [ ] Restart dev server
-### 8. [ ] Verify all errors resolved
+## Progress: 0/12 [░░░░░░░░░░░]
 
-**Current Status**: Starting Phase 1 Step 1
+### Step 1: Global Styles & Utilities
+- [ ] Add uxcel-inspired CSS utilities to globals.css (glassmorphism, gradients, shadows)
+
+### Step 2: Reusable Components
+- [ ] Create StatCard.tsx, ProgressBar.tsx, GlassButton.tsx in components/dashboard/
+
+### Step 3: Layout Components
+- [ ] Update DashboardSidebar.tsx (glass effect, hover animations)
+- [ ] Update dashboard/page.tsx (gradient hero, better spacing)
+
+### Step 4: Content Tabs
+- [ ] Redesign GeneralTab.tsx (metrics dashboard, progress visuals)
+- [ ] Enhance CoursesTab.tsx (subtabs + cards)
+
+### Step 5: Subtab Enhancements
+- [ ] CoursesSubTab.tsx (course progress, materials)
+- [ ] WishlistSubTab.tsx / CertificatesSubTab.tsx (modern cards)
+
+### Step 6: Settings & Polish
+- [ ] SettingsTab.tsx (profile editor, modals)
+- [ ] Mobile drawer for sidebar
+- [ ] Loading states & animations
+
+### Step 7: Testing
+- [ ] Responsive testing
+- [ ] Dev server test
+- [ ] Final review
+
+**Progress: 1/12 [█░░░░░░░░░░]**
+
+Step 1 ✅ Global styles updated with glassmorphism, gradients, modern shadows.
+
+**Progress: 2/12 [██░░░░░░░░░]**
+
+Step 1 ✅ Global styles  
+Step 2 ✅ Reusable components created (StatCard, ProgressBar, GlassCard)
+
+**Progress: 3/12 [███░░░░░░░░]**
+
+Step 1 ✅ Globals  
+Step 2 ✅ Reusables  
+Step 3 ✅ Sidebar redesigned (glassmorphism ✨)
+
+**Progress: 8/12 [████████░░]**
+
+✅ Layout & Core Components Complete  
+✅ GeneralTab (Metrics Dashboard)  
+✅ CoursesTab (Glass subtabs)  
+✅ Import fixes  
+
+**Next:** Complete Wishlist/Certificates subtabs, Settings, mobile
+
+Dashboard now has modern uxcel.com style UI/UX! 🎨✨
+
+
+
+
 

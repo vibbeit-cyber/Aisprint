@@ -81,8 +81,58 @@ h1, h2, h3, h4, h5, h6 {
     @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200;
   }
 
-  .container-custom {
+.container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* UXcel-inspired Utilities */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl p-8;
+  }
+
+  .glass-button {
+    @apply bg-white/70 backdrop-blur-md border border-white/30 shadow-xl px-6 py-3 rounded-2xl font-semibold hover:scale-105 transition-all duration-300;
+  }
+
+  .stat-card {
+    @apply glass-card text-center border-0 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500;
+  }
+
+  .stat-number {
+    @apply text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-600 to-purple-600 bg-clip-text text-transparent;
+  }
+
+  .progress-fill {
+    @apply bg-gradient-to-r from-brand-500 to-brand-600 h-3 rounded-full shadow-inner transition-all duration-1000;
+  }
+
+  .course-hero {
+    @apply w-full h-48 object-cover rounded-2xl shadow-2xl;
+  }
+
+  .gradient-hero {
+    @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100;
+  }
+
+  .shadow-floating {
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), 0 10px 20px -5px rgba(0,0,0,0.05);
+  }
+
+  /* Animations */
+  @keyframes shimmer {
+    0% { background-position: -468px 0; }
+    100% { background-position: 468px 0; }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 300px 100%;
+    animation: shimmer 1.4s infinite;
+  }
+
+  /* Hover effects */
+  .hover-scale {
+    @apply hover:scale-[1.02] transition-transform duration-300;
   }
 
   .section-padding {
@@ -189,7 +239,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .blog-content p{
-  font-size:0rem;
+  font-size:1rem;
   line-height:1.8;
   margin-top:1rem;
 }
