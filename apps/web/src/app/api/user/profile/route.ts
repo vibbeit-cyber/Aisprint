@@ -3,6 +3,7 @@ import { query } from '@/lib/db'
 import { cookies } from 'next/headers'
 
 /* ───────────── GET USER ───────────── */
+export const dynamic = 'force-dynamic'
 export async function GET() {
   try {
     const cookieStore = cookies()

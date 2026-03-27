@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { cookies } from 'next/headers'
+export const dynamic = 'force-dynamic'
 
+// rest of your code
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
